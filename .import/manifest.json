@@ -1,0 +1,6 @@
+{
+  "version": "1.4.3",
+  "mode": "split-standalone-to-site",
+  "entrypoint": "index.html",
+  "assets": "site/"
+}
