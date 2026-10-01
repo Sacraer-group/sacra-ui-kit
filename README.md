@@ -1,91 +1,116 @@
 # SACRA UI Kit
 
-Private UI kit for Sacraer Group. Current source target: **SACRA UI 1.4.3 / Technical Editorial**.
+Private UI kit for Sacraer Group. Current reference: **SACRA UI 1.4.3 / Technical Editorial**.
 
-Graphite surfaces, yellow focus/action accent, SF Mono/Nerd typography, Swiss grid structure, restrained brutalism, technical/cyber graphics, reusable controls, charts, WebAssembly motion, and workspace patterns.
+The repository is intentionally structured so the showcase is a normal multi-file site rather than a giant baked HTML file.
+
+## Repository layout
+
+```text
+index.html                 # showcase entrypoint; loads external assets from site/
+site/                      # SACRA UI 1.4.3 package hierarchy, except index.html
+  starter.html
+  modular.html
+  sacra-ui.css
+  tokens.css
+  tokens.json
+  runtime-tokens.json
+  docs/
+  examples/
+  previews/
+  scripts/
+  src/
+  tests/
+  wasm/
+skills/                    # portable agent skills
+  sacra-ui-build/
+  sacra-ui-controls/
+  sacra-ui-data-viz/
+  sacra-ui-audit/
+```
+
+`index.html` does **not** embed the CSS, runtime JavaScript, C source, or WASM payload. It references the corresponding files under `site/`.
+
+The `site/` directory preserves the **1.4.3 package hierarchy 1:1 except for `index.html`**, which lives at repository root by design.
 
 ## Agent skills
 
-This repo ships four portable skills:
-
 | Skill | Use it for |
 |---|---|
-| `sacra-ui-build` | Building/adapting full screens and layouts in SACRA UI |
-| `sacra-ui-controls` | Forms, custom selects, checkbox/switch, focus, copy/toast feedback |
-| `sacra-ui-data-viz` | Charts, technical graphics, Canvas, WebAssembly motion |
-| `sacra-ui-audit` | Review, accessibility, responsive QA, regression/release checks |
+| `sacra-ui-build` | Full screens, layouts, dashboards, forms, tables, workspaces |
+| `sacra-ui-controls` | Custom selects, checkbox/switch, focus, copy/toast feedback |
+| `sacra-ui-data-viz` | Charts, Canvas, technical graphics, real WASM motion |
+| `sacra-ui-audit` | Design-system review, accessibility, responsive and regression QA |
 
-The commands below use the open `skills` CLI. Because this repository is private, your **local Git client** must be authenticated. ChatGPT/GitHub connector access does not authenticate `git` in your terminal.
+### Just list the available skills
 
-Recommended path: authenticate GitHub CLI over HTTPS and install its Git credential helper:
+Your local Git client must already have access to this private repo:
+
+```sh
+npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --list
+```
+
+### Install skills only
+
+Codex:
+
+```sh
+npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -y
+```
+
+Codex + OpenCode:
+
+```sh
+npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -a opencode -y
+```
+
+The remote `skills add` command installs the selected skill folders. It does **not** install the whole `site/` reference tree.
+
+### Download the full UI reference + install all skills
+
+This is the recommended workflow when the agent should be able to inspect every 1.4.3 template, source module, WASM file, example and QA reference:
+
+```sh
+gh repo clone Sacraer-group/sacra-ui-kit
+cd sacra-ui-kit
+npx skills add ./skills --skill '*' -g -a codex -a opencode -y
+```
+
+For Codex only:
+
+```sh
+gh repo clone Sacraer-group/sacra-ui-kit
+cd sacra-ui-kit
+npx skills add ./skills --skill '*' -g -a codex -y
+```
+
+When a skill is used inside this checkout it should inspect `site/` first. When the skill is installed standalone, its own `references/` directory is the compact fallback.
+
+### Private-repo auth
 
 ```sh
 gh auth status -h github.com
 gh auth setup-git
-gh repo view Sacraer-group/sacra-ui-kit --json nameWithOwner,isPrivate,viewerPermission
+git ls-remote https://github.com/Sacraer-group/sacra-ui-kit.git HEAD
 ```
 
-If `gh auth status` shows the wrong account and you already have `renosaza` connected:
+If multiple GitHub accounts are stored, switch without deleting the others:
 
 ```sh
 gh auth switch -h github.com -u renosaza
 gh auth setup-git
 ```
 
-Verify private-repo clone access before running the skills installer:
+## SACRA contract
 
-```sh
-git ls-remote https://github.com/Sacraer-group/sacra-ui-kit.git HEAD
-```
-
-### List available skills
-
-```sh
-npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --list
-```
-
-### Install all SACRA skills globally for Codex
-
-```sh
-npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -y
-```
-
-### Install all for Codex + OpenCode
-
-```sh
-npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -a opencode -y
-```
-
-### Install one skill
-
-```sh
-npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill sacra-ui-build -g -a codex -y
-```
-
-If you prefer SSH instead, verify the key first:
-
-```sh
-ssh -T git@github.com
-git ls-remote git@github.com:Sacraer-group/sacra-ui-kit.git HEAD
-```
-
-Then replace the HTTPS repository URL in the commands above with `git@github.com:Sacraer-group/sacra-ui-kit.git`.
-
-Optional: disable anonymous `skills` CLI telemetry for the command:
-
-```sh
-DISABLE_TELEMETRY=1 npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --list
-```
-
-## SACRA design contract
-
-- Preserve the graphite/yellow palette and `--s-*` tokens.
-- `s-*` is the reusable product layer; `ds-*` is documentation-showcase-only.
-- Keep keyboard focus visible. Yellow focus is navigation state; green check/toast is success feedback.
-- Do not fake performance/telemetry or label JavaScript-only animation as WASM.
-- Demo/synthetic chart data must be identified as such.
-- Reuse existing modules and components before creating new dependencies or abstractions.
+- Preserve the graphite/yellow `--s-*` tokens.
+- `s-*` is reusable product UI; `ds-*` is showcase/documentation-only.
+- Yellow focus is keyboard navigation state; green check/toast is success feedback.
+- Custom selects remain backed by native `select` values/events.
+- Do not fake telemetry or claim JavaScript-only animation is WASM.
+- Synthetic chart data must be identified as synthetic/demo.
+- Prefer existing modules/templates under `site/` over new dependencies or parallel abstractions.
 
 ## Privacy
 
-This GitHub repository is intentionally **private**. Do not mirror its source or skills into a public repository without an explicit decision from the organization.
+This repository is **private**. Do not mirror its source, site or skills to a public repository without an explicit organization decision.

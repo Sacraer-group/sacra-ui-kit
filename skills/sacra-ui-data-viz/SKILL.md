@@ -3,30 +3,27 @@ name: sacra-ui-data-viz
 description: Build or integrate SACRA UI charts, technical graphics, and WebAssembly motion. Use for line/bar/scatter/radar/heatmap/donut/gauge/Sankey/treemap charts, animated wireframes, WASM geometry, Canvas/SVG rendering, exports, and performance controls.
 metadata:
   author: Sacraer-group
-  version: "1.0.0"
+  version: "1.1.0"
   argument-hint: <chart-or-motion-feature>
 ---
 
 # SACRA UI Data Viz + WASM
 
-Use the shipped modules instead of reimplementing charting or fake-WASM animation.
-
-If the repository is available, read `docs/API.md`, `examples/charts.html`, `examples/motion.html`, `src/sacra-charts.js`, `src/sacra-motion.js`, `src/geometry.c`, and `wasm/manifest.json`.
+If the full kit checkout is available, inspect `site/docs/API.md`, `site/examples/charts.html`, `site/examples/motion.html`, `site/src/sacra-charts.js`, `site/src/sacra-motion.js`, `site/src/geometry.c`, and `site/wasm/manifest.json`. Standalone installs use `references/data-viz.md` as the compact fallback.
 
 ## Charts
 
-Mount charts with `SacraCharts.mount(host, spec)`. Existing chart families include line/area, bar, stacked bar, OHLC/candlestick, scatter, radar, heatmap, donut, gauge, Sankey, treemap and sparkline.
+Use `SacraCharts.mount(host, spec)` and existing chart families before adding a chart dependency: line/area, bar, stacked bar, OHLC/candlestick, scatter, radar, heatmap, donut, gauge, Sankey, treemap and sparkline.
 
-Rules:
-- Use axis labels/scales where the chart requires them.
+- Use axis labels/scales where applicable.
 - Provide legend/text/symbols so color is not the only channel.
-- Keep an accessible data alternative and exports where relevant (`CSV`, `JSON`, `SVG`).
+- Preserve accessible data alternatives and CSV/JSON/SVG exports where relevant.
 - Mark synthetic/demo data explicitly.
-- Reuse the graphite/yellow palette; success/danger colors are semantic, not decoration.
+- Keep green/red semantic rather than decorative.
 
 ## Motion / WebAssembly
 
-Use the real WASM geometry core. `src/geometry.c` computes vertices; `src/sacra-motion.js` owns Canvas2D rendering and UI behavior. Do not replace it with a JavaScript-only imitation while claiming WASM.
+Use the real geometry core in `site/wasm/geometry.wasm`, compiled from `site/src/geometry.c`. JavaScript in `site/src/sacra-motion.js` renders it to Canvas.
 
 ```js
 await SacraMotion.ready;
@@ -39,15 +36,6 @@ const view = SacraMotion.mount(canvas, {
 });
 ```
 
-- Support play/pause and a user-controlled FPS limit.
-- Pause work while hidden/offscreen where the module supports it.
-- Respect `prefers-reduced-motion`.
-- Report measured FPS/compute time only; never display made-up performance numbers.
-- Keep decorative motion `aria-hidden` when it conveys no data.
-- Use SVG/Canvas exports as the application needs; avoid unrelated WebGL dependencies unless the task truly requires them.
+Support play/pause and FPS limits, pause hidden/offscreen work where supported, respect `prefers-reduced-motion`, and report only measured FPS/compute time. Never replace the WASM path with a JavaScript imitation while still calling it WASM.
 
-## Verification
-
-For WASM changes rebuild with `scripts/build-wasm.sh`, refresh the embedded binary with `scripts/embed-wasm.py` if needed, then run `node tests/wasm.test.cjs` and the smallest relevant browser check. For chart changes test keyboard focus/tooltip/data export in addition to appearance.
-
-See `references/data-viz.md` for the compact API contract.
+For WASM changes use `site/scripts/build-wasm.sh` / `site/scripts/embed-wasm.py` and `node site/tests/wasm.test.cjs`.
