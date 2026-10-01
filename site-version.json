@@ -1,0 +1,7 @@
+{
+  "name": "SACRA UI",
+  "version": "1.4.3",
+  "entrypoint": "index.html",
+  "stylesheet": "sacra-ui.css",
+  "standalone": true
+}
