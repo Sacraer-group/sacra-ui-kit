@@ -1,0 +1,1 @@
+const fs=require('fs');const b=fs.readFileSync(require('path').join(__dirname,'../wasm/geometry.wasm'));WebAssembly.instantiate(b,{}).then(x=>{if(!x.instance.exports.memory)throw Error('memory export missing');console.log('WASM OK')}).catch(e=>{console.error(e);process.exit(1)});
