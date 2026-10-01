@@ -1,0 +1,53 @@
+name: Import SACRA UI site
+on:
+  push:
+    branches: [main]
+    paths: ['.import/manifest.json']
+permissions:
+  contents: write
+concurrency:
+  group: sacra-site-import
+  cancel-in-progress: false
+jobs:
+  import:
+    if: github.repository == 'Sacraer-group/sacra-ui-kit'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Verify private repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: test "$(gh api "repos/$GITHUB_REPOSITORY" --jq '.private')" = true
+      - name: Restore SACRA UI 1.4.3 hierarchy
+        run: python3 .import/restore.py
+      - name: Verify external entrypoint and source tree
+        run: |
+          test -f index.html
+          test -f site/sacra-ui.css
+          test -f site/src/sacra-controls.js
+          test -f site/src/sacra-motion.js
+          test -f site/src/geometry.c
+          test -f site/wasm/geometry.wasm
+          test -f site/examples/controls.html
+          test ! -f site/index.html
+          ! grep -q '<style>' index.html
+          grep -q 'site/sacra-ui.css' index.html
+          grep -q 'site/src/showcase.js' index.html
+          for f in site/src/*.js site/wasm/geometry-binary.js; do node --check "$f"; done
+          python3 -m py_compile site/scripts/*.py site/tests/*.py
+      - name: Generate preview assets from current site
+        run: |
+          mkdir -p site/previews
+          python3 -m pip install -q playwright
+          python3 -m playwright install chromium
+          python3 .import/previews.py
+      - name: Commit structured site
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f sacra-ui.css site-version.json 2>/dev/null || true
+          git rm -r .import .github/workflows/import-site.yml
+          git add index.html site
+          git commit -m 'refactor: move SACRA UI 1.4.3 assets under site'
+          git push origin HEAD:main
