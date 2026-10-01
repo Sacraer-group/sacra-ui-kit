@@ -15,11 +15,16 @@ Prefer existing examples and templates:
 - `site/examples/charts.html`
 - `site/examples/motion.html`
 - `site/examples/workspace.html`
+- `site/examples/documentation.html`
+- `site/examples/documentation-guide.html`
 
 Reusable agent skills:
 - `skills/sacra-ui-build`
 - `skills/sacra-ui-controls`
 - `skills/sacra-ui-data-viz`
+- `skills/sacra-ui-docs`
 - `skills/sacra-ui-audit`
+
+For documentation UI, use `site/src/sacra-docs.css`, `site/src/sacra-docs.js`, and `site/docs/DOCUMENTATION.md`; examples define design/interaction only, never a target project's API facts.
 
 For non-trivial changes run the smallest relevant check under `site/tests/`. Keep root `index.html` externalized: do not bake CSS/JS/WASM back into it.

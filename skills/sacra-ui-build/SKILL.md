@@ -3,7 +3,7 @@ name: sacra-ui-build
 description: Build or adapt application screens with SACRA UI / Technical Editorial. Use for dashboards, admin panels, forms, tables, navigation, cards, workspaces, landing screens, and other UI that should follow the SACRA graphite/yellow design system.
 metadata:
   author: Sacraer-group
-  version: "1.2.0"
+  version: "1.3.0"
   argument-hint: <screen-or-feature>
 ---
 
@@ -26,6 +26,7 @@ From the resolved full reference root inspect:
 - `site/src/`
 - `site/docs/DESIGN-SYSTEM.md`
 - `site/docs/API.md`
+- `site/docs/DOCUMENTATION.md` when building developer/API documentation
 
 ## Modules
 
@@ -36,6 +37,7 @@ Use only what the screen needs:
 - charts: `site/src/sacra-charts.js`
 - motion/WASM: `site/wasm/geometry-binary.js` + `site/src/sacra-motion.js`
 - workspace patterns: `site/src/sacra-workspace.js`
+- documentation: `site/src/sacra-docs.css` + `site/src/sacra-docs.js`; start from `site/examples/documentation.html` or `site/examples/documentation-guide.html`
 
 For another repository, copy the necessary reusable files from `site/` rather than linking back to this private checkout at runtime.
 

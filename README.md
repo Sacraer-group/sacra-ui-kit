@@ -26,6 +26,7 @@ skills/                    # portable agent skills
   sacra-ui-build/
   sacra-ui-controls/
   sacra-ui-data-viz/
+  sacra-ui-docs/
   sacra-ui-audit/
 ```
 
@@ -40,6 +41,7 @@ The `site/` directory preserves the **1.4.3 package hierarchy 1:1 except for `in
 | `sacra-ui-build` | Full screens, layouts, dashboards, forms, tables, workspaces |
 | `sacra-ui-controls` | Custom selects, checkbox/switch, focus, copy/toast feedback |
 | `sacra-ui-data-viz` | Charts, Canvas, technical graphics, real WASM motion |
+| `sacra-ui-docs` | API/SDK docs, guides, code copy blocks, synchronized language tabs |
 | `sacra-ui-audit` | Design-system review, accessibility, responsive and regression QA |
 
 ### Just list the available skills
@@ -140,6 +142,18 @@ If multiple GitHub accounts are stored, switch without deleting the others:
 gh auth switch -h github.com -u renosaza
 gh auth setup-git
 ```
+
+## Documentation examples
+
+The repository now includes a reusable documentation layer based on the SACRA visual language:
+
+- `site/examples/documentation.html` — API/reference layout with sticky TOC, endpoint table, request/response blocks, code-copy feedback and synchronized cURL/Python/Go/TypeScript tabs.
+- `site/examples/documentation-guide.html` — guide/tutorial layout with ordered steps, code samples, callouts and previous/next navigation.
+- `site/src/sacra-docs.css` — reusable `s-doc-*` styles.
+- `site/src/sacra-docs.js` — global language selection, copy bindings and active TOC state.
+- `site/docs/DOCUMENTATION.md` — design and interaction rules.
+
+The example text and endpoints are intentionally synthetic. Reuse the **design and interaction**, not the demo API contract.
 
 ## SACRA contract
 

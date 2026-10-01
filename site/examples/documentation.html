@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>SACRA Docs · API reference example</title>
+<link rel="stylesheet" href="../sacra-ui.css">
+<link rel="stylesheet" href="../src/sacra-docs.css">
+</head>
+<body class="s-root s-doc-root">
+<div class="s-doc-shell">
+<header class="s-doc-topbar">
+<a class="s-doc-brand" href="#overview"><span class="s-doc-brand__mark">S</span><span><strong>SACRA DOCS</strong><small>API REFERENCE / DEMO</small></span></a>
+<nav class="s-doc-topnav" aria-label="Разделы документации"><a aria-current="page" href="#overview">Reference</a><a href="documentation-guide.html">Guide</a><a href="../starter.html">Starter</a></nav>
+<span class="s-doc-meta">DEMO / 1.0</span>
+</header>
+<main>
+<section class="s-doc-hero" id="overview">
+<div class="s-doc-hero__row"><div><p class="s-kicker">DOCUMENTATION / REFERENCE</p><h1>Техническая документация без визуального шума.</h1><p>Пример оформления API-доки в SACRA UI: sticky TOC, таблицы, callout-блоки, синхронное переключение языков и копирование кода с общим success-feedback.</p></div><aside class="s-doc-version"><span>VERSION</span><strong>v1 / demo</strong><span>UPDATED · 2026-10-02</span></aside></div>
+</section>
+<div class="s-doc-layout">
+<aside class="s-doc-toc" aria-label="Содержание"><p class="s-doc-toc__label">На странице</p><a class="is-active" href="#quickstart"><span>Начало работы</span><small>01</small></a><a href="#endpoint"><span>Запрос</span><small>02</small></a><a href="#response"><span>Ответ</span><small>03</small></a><a href="#errors"><span>Ошибки</span><small>04</small></a></aside>
+<article class="s-doc-content s-doc-prose">
+<section class="s-doc-section" id="quickstart"><div class="s-doc-section__head"><span class="s-doc-section__index">01</span><div><h2>Начало работы</h2><p>Документация строится вокруг коротких объяснений, чётких технических блоков и повторяемой навигации. Этот пример использует синтетический endpoint.</p></div></div>
+<div class="s-doc-callout"><strong>Демо, не реальный API</strong><p>Содержание ниже специально условное: паттерн предназначен для копирования дизайна и поведения, а не бизнес-контракта.</p></div>
+<h3>Эндпоинты</h3><div class="s-doc-table-wrap"><table class="s-doc-table"><thead><tr><th>Метод</th><th>Путь</th><th>Назначение</th></tr></thead><tbody><tr><td><span class="s-doc-method">POST</span></td><td><code>/v1/jobs</code></td><td>Создать демонстрационную задачу</td></tr><tr><td><span class="s-doc-method">GET</span></td><td><code>/v1/jobs/{id}</code></td><td>Получить состояние</td></tr><tr><td><span class="s-doc-method">GET</span></td><td><code>/health</code></td><td>Проверить доступность</td></tr></tbody></table></div></section>
+<section class="s-doc-section" id="endpoint"><div class="s-doc-section__head"><span class="s-doc-section__index">02</span><div><h2>Создание задачи</h2><p>Выбранный язык синхронизируется между всеми code-group на странице. Нажатие Copy использует общий <code>SacraUtils.copy</code>: зелёная галочка + toast появляются только после успешного копирования.</p></div></div>
+<div class="s-doc-lang" data-doc-languages><div class="s-tabs s-doc-lang__tabs" role="tablist" aria-label="Язык примера"><button class="s-tab" role="tab" data-doc-language="curl" aria-selected="true">cURL</button><button class="s-tab" role="tab" data-doc-language="python" aria-selected="false">Python</button><button class="s-tab" role="tab" data-doc-language="go" aria-selected="false">Go</button><button class="s-tab" role="tab" data-doc-language="typescript" aria-selected="false">TypeScript</button></div>
+<div class="s-doc-lang__panel" data-doc-panel="curl"><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">POST /v1/jobs · cURL</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" type="button" data-doc-copy aria-label="Скопировать cURL"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>curl -X POST "$API_BASE/v1/jobs" \
+  -H "Authorization: Bearer $API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"input":"demo"}'</code></pre></div></div>
+<div class="s-doc-lang__panel" data-doc-panel="python" hidden><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">POST /v1/jobs · Python</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" type="button" data-doc-copy aria-label="Скопировать Python"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>import requests
+
+response = requests.post(
+    f"{API_BASE}/v1/jobs",
+    headers={"Authorization": f"Bearer {API_TOKEN}"},
+    json={"input": "demo"},
+    timeout=30,
+)
+response.raise_for_status()</code></pre></div></div>
+<div class="s-doc-lang__panel" data-doc-panel="go" hidden><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">POST /v1/jobs · Go</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" type="button" data-doc-copy aria-label="Скопировать Go"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>body := strings.NewReader(`{"input":"demo"}`)
+req, _ := http.NewRequest("POST", apiBase+"/v1/jobs", body)
+req.Header.Set("Authorization", "Bearer "+apiToken)
+req.Header.Set("Content-Type", "application/json")
+resp, err := http.DefaultClient.Do(req)</code></pre></div></div>
+<div class="s-doc-lang__panel" data-doc-panel="typescript" hidden><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">POST /v1/jobs · TypeScript</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" type="button" data-doc-copy aria-label="Скопировать TypeScript"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>const response = await fetch(`${API_BASE}/v1/jobs`, {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${API_TOKEN}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ input: 'demo' }),
+});</code></pre></div></div></div>
+</section>
+<section class="s-doc-section" id="response"><div class="s-doc-section__head"><span class="s-doc-section__index">03</span><div><h2>Ответ и состояние</h2><p>Для request/response можно использовать парную раскладку. На узких нама складывается в одну колонку.</p></div></div>
+<div class="s-doc-pair"><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">REQUEST</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" data-doc-copy type="button" aria-label="Скопировать request"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>{
+  "input": "demo"
+}</code></pre></div><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">RESPONSE · 202</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" data-doc-copy type="button" aria-label="Скопировать response"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>{
+  "id": "job_demo_01",
+  "state": "queued"
+}</code></pre></div></div>
+<div class="s-doc-callout s-doc-callout--success"><strong>Хороший паттерн</strong><p>Код рядом с объяснениен; язык меняется глобально; кнопка копирования ссегда остаётся в одинаковом месте.</p></div></section>
+<section class="s-doc-section" id="errors"><div class="s-doc-section__head"><span class="s-doc-section__index">04</span><div><h2>Ошибки и ограничения</h2><p>Ошибки показываются текстом и структурой, не только цветом.</p></div></div>
+<div class="s-doc-callout s-doc-callout--danger"><strong>429 · Too many requests</strong><p>Пример ошибки. Не используйте красный как единственный канал: сохраняйте код, заголовок и понятное действие.</p></div>
+<div class="s-doc-pager"><a href="#response"><small>Предыдущий раздел</small><strong>← Ответ и состояние</strong></a><a href="documentation-guide.html"><small>Следующий пример</small><strong>Guide / Tutorial →</strong></a></div></section>
+</article></div>
+</main>
+<footer class="s-doc-footer"><span>SACRA DOCS / REFERENCE EXAMPLE</span><span>synthetic content · reusable visual pattern</span></footer>
+</div>
+<script src="../src/sacra-utils.js"></script>
+<script src="../src/sacra-docs.js"></script>
+</body>
+</html>

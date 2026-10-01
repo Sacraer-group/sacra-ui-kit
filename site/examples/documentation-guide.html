@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
+<title>SACRA Docs · Guide example</title>
+<link rel="stylesheet" href="../sacra-ui.css"><link rel="stylesheet" href="../src/sacra-docs.css">
+</head>
+<body class="s-root s-doc-root"><div class="s-doc-shell">
+<header class="s-doc-topbar"><a class="s-doc-brand" href="#guide"><span class="s-doc-brand__mark">S</span><span><strong>SACRA DOCS</strong><small>GUIDE / DEMO</small></span></a><nav class="s-doc-topnav" aria-label="Разделы документации"><a href="documentation.html">Reference</a><a aria-current="page" href="#guide">Guide</a><a href="../starter.html">Starter</a></nav><span class="s-doc-meta">TUTORIAL</span></header>
+<main><section class="s-doc-hero" id="guide"><div class="s-doc-hero__row"><div><p class="s-kicker">DOCUMENTATION / GUIDE</p><h1>Пошаговая дока в том же языке системы.</h1><p>Второй паттерн: tutorial/guide с шагами, командами, callout-блоками и навигацией между материалами. Всё содержимое демонстрационное.</p></div><aside class="s-doc-version"><span>READ TIME</span><strong>~4 min</strong><span>LEVEL · BASIC</span></aside></div></section>
+<div class="s-doc-layout"><aside class="s-doc-toc" aria-label="Содержание"><p class="s-doc-toc__label">В руководстве</p><a class="is-active" href="#install"><span>Установка</span><small>01</small></a><a href="#configure"><span>Настройка</span><small>02</small></a><a href="#verify"><span>Проверка</span><small>03</small></a></aside>
+<article class="s-doc-content s-doc-prose"><section class="s-doc-section" id="install"><div class="s-doc-section__head"><span class="s-doc-section__index">01</span><div><h2>Установка</h2><p>Guide-паттерн начинается с короткого результата, затем показывает шаги и только необходимый код.</p></div></div>
+<div class="s-doc-steps"><div class="s-doc-step"><span class="s-doc-step__num">1</span><div><h3>Добавьте пакет</h3><p>Используйте одну команду и оставьте рядом контекст, зачем она нужна.</p></div></div><div class="s-doc-step"><span class="s-doc-step__num">2</span><div><h3>Подключите конфигурацию</h3><p>Показывайте следующий обязательный шаг сразу под первым.</p></div></div></div>
+<div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">TERMINAL</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" type="button" data-doc-copy aria-label="Скопировать команду"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>example install sacra-demo
+example init --profile technical</code></pre></div></section>
+<section class="s-doc-section" id="configure"><div class="s-doc-section__head"><span class="s-doc-section__index">02</span><div><h2>Настройка</h2><p>Один и тот же conceptual snippet можно показать на нескольких языках, сохранив единый визуальный ритм.</p></div></div>
+<div class="s-doc-lang" data-doc-languages><div class="s-tabs s-doc-lang__tabs" role="tablist" aria-label="Язык конфигурации"><button class="s-tab" role="tab" data-doc-language="typescript" aria-selected="true">TypeScript</button><button class="s-tab" role="tab" data-doc-language="python" aria-selected="false">Python</button><button class="s-tab" role="tab" data-doc-language="go" aria-selected="false">Go</button></div>
+<div class="s-doc-lang__panel" data-doc-panel="typescript"><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">config.ts</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" data-doc-copy type="button" aria-label="Скопировать TypeScript"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>export const config = {
+  mode: 'technical',
+  accent: 'yellow',
+};</code></pre></div></div>
+<div class="s-doc-lang__panel" data-doc-panel="python" hidden><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">config.py</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" data-doc-copy type="button" aria-label="Скопировать Python"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>config = {
+    "mode": "technical",
+    "accent": "yellow",
+}</code></pre></div></div>
+<div class="s-doc-lang__panel" data-doc-panel="go" hidden><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">config.go</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" data-doc-copy type="button" aria-label="Скопировать Go"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>config := Config{
+    Mode: "technical",
+    Accent: "yellow",
+}</code></pre></div></div></div>
+<div class="s-doc-callout"><strong>Синхронный язык</strong><p>Если на странице несколько language-group, выбор языка применяется ко всем совместимым блокам и сохраняется в localStorage.</p></div></section>
+<section class="s-doc-section" id="verify"><div class="s-doc-section__head"><span class="s-doc-section__index">03</span><div><h2>Проверка</h2><p>Заканчивайте guide проверяемым результатом, а не абстрактным “готово”.</p></div></div><div class="s-doc-code" data-doc-code><div class="s-doc-code__head"><span class="s-doc-code__label">VERIFY</span><button class="s-btn s-btn--ghost s-btn--icon s-doc-copy" type="button" data-doc-copy aria-label="Скопировать проверку"><svg class="s-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg></button></div><pre><code>example doctor
+# expected: profile=technical status=ok</code></pre></div><div class="s-doc-callout s-doc-callout--success"><strong>Готово</strong><p>У читателя есть явная команда проверки и ожидаемый результат.</p></div><div class="s-doc-pager"><a href="documentation.html"><small>Reference</small><strong>← API documentation</strong></a><a href="#guide"><small>Наверх</small><strong>Guide overview ↑</strong></a></div></section></article></div></main>
+<footer class="s-doc-footer"><span>SACRA DOCS / GUIDE EXAMPLE</span><span>synthetic content · reusable visual pattern</span></footer></div>
+<script src="../src/sacra-utils.js"></script><script src="../src/sacra-docs.js"></script>
+</body></html>
