@@ -3,13 +3,15 @@ name: sacra-ui-data-viz
 description: Build or integrate SACRA UI charts, technical graphics, and WebAssembly motion. Use for line/bar/scatter/radar/heatmap/donut/gauge/Sankey/treemap charts, animated wireframes, WASM geometry, Canvas/SVG rendering, exports, and performance controls.
 metadata:
   author: Sacraer-group
-  version: "1.1.0"
+  version: "1.2.0"
   argument-hint: <chart-or-motion-feature>
 ---
 
 # SACRA UI Data Viz + WASM
 
-If the full kit checkout is available, inspect `site/docs/API.md`, `site/examples/charts.html`, `site/examples/motion.html`, `site/src/sacra-charts.js`, `site/src/sacra-motion.js`, `site/src/geometry.c`, and `site/wasm/manifest.json`. Standalone installs use `references/data-viz.md` as the compact fallback.
+Resolve the full reference root in this order: current `sacra-ui-kit` checkout, then `$HOME/.codex/sacra-ui-kit`, then bundled `references/data-viz.md`.
+
+When a full reference root is available, inspect `site/docs/API.md`, `site/examples/charts.html`, `site/examples/motion.html`, `site/src/sacra-charts.js`, `site/src/sacra-motion.js`, `site/src/geometry.c`, and `site/wasm/manifest.json`.
 
 ## Charts
 

@@ -3,7 +3,7 @@ name: sacra-ui-audit
 description: Audit, maintain, or refactor SACRA UI implementations for design-system consistency, accessibility, responsive behavior, build integrity, and regression risk. Use for code review, visual QA, cleanup, upgrades, and release checks.
 metadata:
   author: Sacraer-group
-  version: "1.1.0"
+  version: "1.2.0"
   argument-hint: <files-or-change>
 ---
 
@@ -11,7 +11,7 @@ metadata:
 
 Review the real implementation and fix shared sources rather than one demo symptom.
 
-When this repository checkout is available, treat `site/` as the canonical downloadable 1.4.3 reference and use `site/docs/QA.md`. Standalone skill installs use `references/audit-checklist.md`.
+Resolve the canonical 1.4.3 reference in this order: current `sacra-ui-kit` checkout, then `$HOME/.codex/sacra-ui-kit/site/`, then bundled `references/audit-checklist.md`. When a full reference is available, use its `site/docs/QA.md` and real source/tests rather than the compact fallback.
 
 ## Audit order
 

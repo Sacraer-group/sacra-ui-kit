@@ -3,7 +3,7 @@ name: sacra-ui-build
 description: Build or adapt application screens with SACRA UI / Technical Editorial. Use for dashboards, admin panels, forms, tables, navigation, cards, workspaces, landing screens, and other UI that should follow the SACRA graphite/yellow design system.
 metadata:
   author: Sacraer-group
-  version: "1.1.0"
+  version: "1.2.0"
   argument-hint: <screen-or-feature>
 ---
 
@@ -13,14 +13,19 @@ Reuse the existing SACRA UI system instead of inventing a parallel visual langua
 
 ## Reference priority
 
-1. If the current checkout is `sacra-ui-kit` and `site/` exists, inspect the full downloadable 1.4.3 reference there first:
-   - `site/starter.html`
-   - `site/examples/`
-   - `site/src/`
-   - `site/docs/DESIGN-SYSTEM.md`
-   - `site/docs/API.md`
-2. If this skill was installed standalone and `site/` is unavailable, use `references/design-system.md` as the compact fallback.
-3. In the target project, reuse any SACRA components already present before copying more kit code.
+Resolve the reference root before building:
+
+1. If the current checkout is `sacra-ui-kit` and contains `site/`, use that checkout.
+2. Otherwise, if `$HOME/.codex/sacra-ui-kit/site/` exists, use `$HOME/.codex/sacra-ui-kit` as the global Codex reference root.
+3. Otherwise use `references/design-system.md` bundled with this skill as the compact fallback.
+4. In the target project, reuse any SACRA components already present before copying more kit code.
+
+From the resolved full reference root inspect:
+- `site/starter.html`
+- `site/examples/`
+- `site/src/`
+- `site/docs/DESIGN-SYSTEM.md`
+- `site/docs/API.md`
 
 ## Modules
 

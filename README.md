@@ -87,37 +87,43 @@ npx skills add ./skills --skill '*' -g -a codex -y
 When a skill is used inside this checkout it should inspect `site/` first. When the skill is installed standalone, its own `references/` directory is the compact fallback.
 
 
-### Install the full site + all skills globally for every project
+### Install the full site + all skills globally for every Codex project
 
-This keeps the complete 1.4.3 reference at a stable global path and installs the skills globally for Codex + OpenCode:
+This is the recommended global Codex setup. It keeps one private checkout at `~/.codex/sacra-ui-kit`, so globally installed SACRA skills can inspect the complete 1.4.3 site/reference from **any** Codex project:
 
 ```sh
-mkdir -p "$HOME/.local/share"
-if [ -d "$HOME/.local/share/sacra-ui-kit/.git" ]; then
-  git -C "$HOME/.local/share/sacra-ui-kit" pull --ff-only
+mkdir -p "$HOME/.codex"
+
+if [ -d "$HOME/.codex/sacra-ui-kit/.git" ]; then
+  git -C "$HOME/.codex/sacra-ui-kit" pull --ff-only
 else
-  gh repo clone Sacraer-group/sacra-ui-kit "$HOME/.local/share/sacra-ui-kit"
+  gh repo clone Sacraer-group/sacra-ui-kit "$HOME/.codex/sacra-ui-kit"
 fi
 
-npx skills add "$HOME/.local/share/sacra-ui-kit/skills" \
+npx skills add "$HOME/.codex/sacra-ui-kit/skills" \
   --skill '*' \
   -g \
   -a codex \
-  -a opencode \
   -y
 ```
 
 After that:
 
-- full site/reference: `~/.local/share/sacra-ui-kit/site/`
-- root showcase: `~/.local/share/sacra-ui-kit/index.html`
-- global skills: available to all projects handled by the selected agents
+- full global reference: `~/.codex/sacra-ui-kit/site/`
+- root showcase: `~/.codex/sacra-ui-kit/index.html`
+- all SACRA skills: installed globally for Codex and available from every Codex project
 
-To update both the global reference and the installed skills later:
+The skills resolve references in this order:
+
+1. a full `sacra-ui-kit` checkout in the current workspace;
+2. the global Codex reference at `$HOME/.codex/sacra-ui-kit/site/`;
+3. the compact `references/` bundled inside the installed skill.
+
+To update the global site and reinstall the latest skills later:
 
 ```sh
-git -C "$HOME/.local/share/sacra-ui-kit" pull --ff-only && \
-npx skills add "$HOME/.local/share/sacra-ui-kit/skills" --skill '*' -g -a codex -a opencode -y
+git -C "$HOME/.codex/sacra-ui-kit" pull --ff-only && \
+npx skills add "$HOME/.codex/sacra-ui-kit/skills" --skill '*' -g -a codex -y
 ```
 
 ### Private-repo auth

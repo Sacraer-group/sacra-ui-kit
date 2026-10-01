@@ -3,7 +3,7 @@ name: sacra-ui-controls
 description: Implement, fix, or review SACRA UI forms and interaction feedback. Use for custom selects, checkboxes, switches, buttons, focus states, clipboard/copy feedback, toasts, dialogs, validation, and keyboard accessibility.
 metadata:
   author: Sacraer-group
-  version: "1.1.0"
+  version: "1.2.0"
   argument-hint: <control-or-form>
 ---
 
@@ -11,7 +11,9 @@ metadata:
 
 Prefer existing controls over new widget code.
 
-If this is a full `sacra-ui-kit` checkout, inspect:
+Resolve the full reference root in this order: current `sacra-ui-kit` checkout, then `$HOME/.codex/sacra-ui-kit`, then bundled `references/controls.md`.
+
+When a full reference root is available, inspect:
 - `site/examples/controls.html`
 - `site/examples/feedback.html`
 - `site/src/sacra-controls.js`
@@ -19,8 +21,6 @@ If this is a full `sacra-ui-kit` checkout, inspect:
 - `site/src/controls.css`
 - `site/src/checkbox.css`
 - `site/src/feedback.css`
-
-If `site/` is unavailable because the skill was installed standalone, use `references/controls.md`.
 
 ## Custom select
 
