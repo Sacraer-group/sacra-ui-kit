@@ -15,44 +15,66 @@ This repo ships four portable skills:
 | `sacra-ui-data-viz` | Charts, technical graphics, Canvas, WebAssembly motion |
 | `sacra-ui-audit` | Review, accessibility, responsive QA, regression/release checks |
 
-The commands below use the open `skills` CLI. Because this repository is private, authenticate GitHub first. The SSH form is simplest when your GitHub SSH key already works.
+The commands below use the open `skills` CLI. Because this repository is private, your **local Git client** must be authenticated. ChatGPT/GitHub connector access does not authenticate `git` in your terminal.
+
+Recommended path: authenticate GitHub CLI over HTTPS and install its Git credential helper:
+
+```sh
+gh auth status -h github.com
+gh auth setup-git
+gh repo view Sacraer-group/sacra-ui-kit --json nameWithOwner,isPrivate,viewerPermission
+```
+
+If `gh auth status` shows the wrong account and you already have `renosaza` connected:
+
+```sh
+gh auth switch -h github.com -u renosaza
+gh auth setup-git
+```
+
+Verify private-repo clone access before running the skills installer:
+
+```sh
+git ls-remote https://github.com/Sacraer-group/sacra-ui-kit.git HEAD
+```
 
 ### List available skills
 
 ```sh
-npx skills add git@github.com:Sacraer-group/sacra-ui-kit.git --list
+npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --list
 ```
 
 ### Install all SACRA skills globally for Codex
 
 ```sh
-npx skills add git@github.com:Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -y
+npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -y
 ```
 
 ### Install all for Codex + OpenCode
 
 ```sh
-npx skills add git@github.com:Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -a opencode -y
+npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill '*' -g -a codex -a opencode -y
 ```
 
 ### Install one skill
 
 ```sh
-npx skills add git@github.com:Sacraer-group/sacra-ui-kit.git --skill sacra-ui-build -g -a codex -y
+npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --skill sacra-ui-build -g -a codex -y
 ```
 
-If you prefer HTTPS, configure GitHub CLI credentials first:
+If you prefer SSH instead, verify the key first:
 
 ```sh
-gh auth login
-gh auth setup-git
-npx skills add https://github.com/Sacraer-group/sacra-ui-kit --list
+ssh -T git@github.com
+git ls-remote git@github.com:Sacraer-group/sacra-ui-kit.git HEAD
 ```
+
+Then replace the HTTPS repository URL in the commands above with `git@github.com:Sacraer-group/sacra-ui-kit.git`.
 
 Optional: disable anonymous `skills` CLI telemetry for the command:
 
 ```sh
-DISABLE_TELEMETRY=1 npx skills add git@github.com:Sacraer-group/sacra-ui-kit.git --list
+DISABLE_TELEMETRY=1 npx skills add https://github.com/Sacraer-group/sacra-ui-kit.git --list
 ```
 
 ## SACRA design contract
