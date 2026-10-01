@@ -86,6 +86,40 @@ npx skills add ./skills --skill '*' -g -a codex -y
 
 When a skill is used inside this checkout it should inspect `site/` first. When the skill is installed standalone, its own `references/` directory is the compact fallback.
 
+
+### Install the full site + all skills globally for every project
+
+This keeps the complete 1.4.3 reference at a stable global path and installs the skills globally for Codex + OpenCode:
+
+```sh
+mkdir -p "$HOME/.local/share"
+if [ -d "$HOME/.local/share/sacra-ui-kit/.git" ]; then
+  git -C "$HOME/.local/share/sacra-ui-kit" pull --ff-only
+else
+  gh repo clone Sacraer-group/sacra-ui-kit "$HOME/.local/share/sacra-ui-kit"
+fi
+
+npx skills add "$HOME/.local/share/sacra-ui-kit/skills" \
+  --skill '*' \
+  -g \
+  -a codex \
+  -a opencode \
+  -y
+```
+
+After that:
+
+- full site/reference: `~/.local/share/sacra-ui-kit/site/`
+- root showcase: `~/.local/share/sacra-ui-kit/index.html`
+- global skills: available to all projects handled by the selected agents
+
+To update both the global reference and the installed skills later:
+
+```sh
+git -C "$HOME/.local/share/sacra-ui-kit" pull --ff-only && \
+npx skills add "$HOME/.local/share/sacra-ui-kit/skills" --skill '*' -g -a codex -a opencode -y
+```
+
 ### Private-repo auth
 
 ```sh
