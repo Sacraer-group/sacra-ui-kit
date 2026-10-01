@@ -1,4 +1,4 @@
-name: Import SACRA UI site
+name: Restructure SACRA UI site
 on:
   push:
     branches: [main]
@@ -9,7 +9,7 @@ concurrency:
   group: sacra-site-import
   cancel-in-progress: false
 jobs:
-  import:
+  restructure:
     if: github.repository == 'Sacraer-group/sacra-ui-kit'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -19,29 +19,49 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: test "$(gh api "repos/$GITHUB_REPOSITORY" --jq '.private')" = true
-      - name: Restore SACRA UI 1.4.3 hierarchy
+      - name: Split standalone 1.4.3 into root entrypoint + site tree
         run: python3 .import/restore.py
-      - name: Verify external entrypoint and source tree
+      - name: Verify external entrypoint and runtime
         run: |
           test -f index.html
           test -f site/sacra-ui.css
           test -f site/src/sacra-controls.js
+          test -f site/src/sacra-utils.js
           test -f site/src/sacra-motion.js
+          test -f site/src/sacra-charts.js
+          test -f site/src/sacra-workspace.js
           test -f site/src/geometry.c
           test -f site/wasm/geometry.wasm
           test -f site/examples/controls.html
+          test -f site/examples/feedback.html
+          test -f site/examples/charts.html
+          test -f site/examples/motion.html
+          test -f site/examples/workspace.html
           test ! -f site/index.html
           ! grep -q '<style>' index.html
+          ! grep -q 'SACRA_WASM_BINARY' index.html
           grep -q 'site/sacra-ui.css' index.html
           grep -q 'site/src/showcase.js' index.html
           for f in site/src/*.js site/wasm/geometry-binary.js; do node --check "$f"; done
           python3 -m py_compile site/scripts/*.py site/tests/*.py
-      - name: Generate preview assets from current site
+          node site/tests/wasm.test.cjs
+      - name: Generate preview assets
         run: |
-          mkdir -p site/previews
           python3 -m pip install -q playwright
           python3 -m playwright install chromium
           python3 .import/previews.py
+      - name: Generate site checksums
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+          root=Path('site')
+          sums={}
+          for p in sorted(root.rglob('*')):
+              if p.is_file() and p.name != 'SHA256SUMS.json':
+                  sums[p.relative_to(root).as_posix()]=hashlib.sha256(p.read_bytes()).hexdigest()
+          (root/'SHA256SUMS.json').write_text(json.dumps(sums,indent=2,ensure_ascii=False)+'\n')
+          PY
       - name: Commit structured site
         run: |
           git config user.name 'github-actions[bot]'
