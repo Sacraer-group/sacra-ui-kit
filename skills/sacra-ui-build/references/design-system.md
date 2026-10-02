@@ -7,3 +7,8 @@ Use SF Mono / Liga SFMono Nerd Font / Menlo / monospace and SVG icons. Base spac
 Reusable classes include `s-btn`, `s-panel`, `s-field`, `s-input`, `s-check`, `s-switch`, `s-badge`, `s-tabs`, `s-table`, `s-alert`, `s-progress`, `s-toast`, `s-empty`, `s-skeleton`, `s-spinner`, `s-card`, `s-metric`, `s-chip`, `s-list`, `s-avatar`, `s-pagination`, `s-menu`, `s-tooltip`, `s-dialog`, `s-kicker`, `s-editorial-title`, `s-register`, `s-rail`, `s-tech-frame`, `s-readout`, `s-scale`.
 
 Never use documentation-only `ds-*` classes in product UI. Keep keyboard focus visible. Success uses green feedback; focus uses yellow. Do not fake telemetry or confidence values.
+
+## Postavki refresh
+
+For a task list + detail view or image upload, start with `site/examples/postavki.html`, `site/src/sacra-operations.css` and `site/src/sacra-upload.js`. Keep the selected task edge, local scroll containers and calm result cards.
+The full source map is `site/docs/UPSTREAM-POSTAVKI.md` in the global or local kit.

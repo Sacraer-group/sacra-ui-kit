@@ -168,3 +168,16 @@ The example text and endpoints are intentionally synthetic. Reuse the **design a
 ## Privacy
 
 This repository is **private**. Do not mirror its source, site or skills to a public repository without an explicit organization decision.
+
+## Frontend refresh from Postavki (2026-10-02)
+
+Source commit: `d74d09d357cf184026973dbb9d055f2ea91894a2`. Core SACRA UI 1.4.3 tokens and existing modules are retained.
+
+- [Queue, upload and result example](site/examples/postavki.html): camera/file pickers, removable previews, validation, master/detail, raw/rendered result and JSON copy. This example is local-only and uses synthetic data.
+- [Six-language code blocks](site/examples/documentation-code.html): cURL/Python/Go/TypeScript/Vue/React, synchronized tabs, keyboard navigation and confirmed copy feedback.
+- `site/src/sacra-upload.js` + `site/src/sacra-operations.css`: reusable, transport-free components.
+- [Source map and adaptations](site/docs/UPSTREAM-POSTAVKI.md).
+
+The main `index.html` includes a working upload specimen and links to both examples. All runtime CSS/JS stays in `site/`; no code is baked into the entrypoint. The existing global Codex update command downloads the new site and updated five skills together.
+
+UI checks: `python site/tests/postavki_browser.py` (requires Playwright + Chromium; `SACRA_CHROMIUM` may name an installed binary). No OCR service is contacted. These are not Safari or real-device camera tests.

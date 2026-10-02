@@ -151,6 +151,7 @@
   $('#download-demo-result').addEventListener('click', () => download('result.example.json', JSON.stringify({ _demo: true, invoice_number:'DEMO-001', invoice_date:'2026-10-01', seller:'Демонстрационный поставщик', buyer:'Демонстрационный покупатель', currency:'RUB', products:[{name:'Пример товара',quantity:2,unit_price:100,total:200}], total:200, status:'example' }, null, 2), 'application/json;charset=utf-8'));
 
   const entries = [
+    ['Фронт Поставок / выбор фото / очередь', 'upstream-patterns', 'box', 'Upstream'],
     ['Motion / WASM / анимация', 'motion-lab', 'play', '6 форм'],
     ['Графики / Sankey / свечи / treemap', 'charts', 'table', '12 типов'],
     ['Workspace / доска / инспектор / логи', 'workspace', 'layers', 'Локальное демо'],

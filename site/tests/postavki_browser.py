@@ -87,7 +87,7 @@ try:
             page.locator('[data-doc-language=go]').first.press('End')
             check('Keyboard End selects React',page.locator('[data-doc-language=react][aria-selected=true]').count()==2)
             check('Keyboard focus follows tab',page.evaluate("document.activeElement.dataset.docLanguage")=='react')
-            check('Every tab linked to a real panel',page.evaluate("[...document.querySelectorAll('[data-doc-language]')].every(t=>{const p=document.getElementById(t.getAttribute('aria-controls'));return p?.getAttribute('aria-labelledby')===t.id&&p.role==='tabpanel';})"))
+            check('Every tab linked to a real panel',page.evaluate("[...document.querySelectorAll('[role=tab][data-doc-language]')].every(t=>{const p=document.getElementById(t.getAttribute('aria-controls'));return p?.getAttribute('aria-labelledby')===t.id&&p.role==='tabpanel';})"))
             page.reload();check('Language survives reload',page.locator('[data-doc-language=react][aria-selected=true]').count()==2)
             cp=page.locator('[data-doc-panel=react]').first.locator('[data-doc-copy]');cp.click();page.wait_for_selector('[data-copy-state=success]')
             check('Copies active snippet only',page.evaluate('navigator.clipboard.readText()')==page.locator('[data-doc-panel=react]').first.locator('code').inner_text())

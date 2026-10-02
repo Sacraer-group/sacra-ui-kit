@@ -3,7 +3,7 @@ name: sacra-ui-data-viz
 description: Build or integrate SACRA UI charts, technical graphics, and WebAssembly motion. Use for line/bar/scatter/radar/heatmap/donut/gauge/Sankey/treemap charts, animated wireframes, WASM geometry, Canvas/SVG rendering, exports, and performance controls.
 metadata:
   author: Sacraer-group
-  version: "1.2.0"
+  version: "1.3.0"
   argument-hint: <chart-or-motion-feature>
 ---
 
@@ -41,3 +41,9 @@ const view = SacraMotion.mount(canvas, {
 Support play/pause and FPS limits, pause hidden/offscreen work where supported, respect `prefers-reduced-motion`, and report only measured FPS/compute time. Never replace the WASM path with a JavaScript imitation while still calling it WASM.
 
 For WASM changes use `site/scripts/build-wasm.sh` / `site/scripts/embed-wasm.py` and `node site/tests/wasm.test.cjs`.
+
+## Postavki frontend refresh
+
+For document-processing dashboards, reuse `site/examples/postavki.html` metric strip and state/detail cards. A processed-page counter is not an overall completion percentage. Demo queue values are not telemetry; never replace measured WASM statistics with synthetic data.
+
+Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.

@@ -12,3 +12,8 @@
 - [ ] WASM code path remains real WASM when claimed.
 - [ ] Demo/synthetic data is explicitly labeled.
 - [ ] Relevant package/test command has been run and its scope stated accurately.
+
+## Postavki refresh
+
+Run `python site/tests/postavki_browser.py` for uploads, local queue/detail, copy success/failure, language groups and responsive checks. Verify result grids use `minmax(0,1fr)` and code/table overflow stays local. Browser MIME checks do not replace server validation.
+The full source map is `site/docs/UPSTREAM-POSTAVKI.md` in the global or local kit.

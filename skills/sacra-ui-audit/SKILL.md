@@ -3,7 +3,7 @@ name: sacra-ui-audit
 description: Audit, maintain, or refactor SACRA UI implementations for design-system consistency, accessibility, responsive behavior, build integrity, and regression risk. Use for code review, visual QA, cleanup, upgrades, and release checks.
 metadata:
   author: Sacraer-group
-  version: "1.2.0"
+  version: "1.3.0"
   argument-hint: <files-or-change>
 ---
 
@@ -40,3 +40,9 @@ python site/tests/browser.py
 Browser tests require a compatible browser/runtime. Do not claim Safari/macOS/iOS verification unless it was actually run.
 
 Report concrete findings with file/path and consequence. Separate verified bugs from subjective design suggestions and prefer one root-cause patch.
+
+## Postavki frontend refresh
+
+Run `python site/tests/postavki_browser.py` for uploads, local queue/detail, copy success/failure, language groups and responsive checks. Verify result grids use `minmax(0,1fr)` and code/table overflow stays local. Browser MIME checks do not replace server validation.
+
+Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.

@@ -3,7 +3,7 @@ name: sacra-ui-docs
 description: Design or implement technical documentation with the SACRA UI documentation pattern. Use for API references, SDK docs, developer guides, code examples, language switchers, copy-to-clipboard code blocks, sticky tables of contents, callouts, endpoint tables, tutorials, and documentation page styling.
 metadata:
   author: Sacraer-group
-  version: "1.0.0"
+  version: "1.1.0"
   argument-hint: <documentation-page-or-section>
 ---
 
@@ -59,3 +59,9 @@ Check:
 - code blocks scroll locally instead of expanding the page.
 
 In this repository run `python site/tests/documentation.py` plus any broader relevant UI check.
+
+## Postavki frontend refresh
+
+Use `site/examples/documentation-code.html` for six-language synchronized code tabs and copy buttons. Preserve tab/panel ARIA links and a visible fallback panel if a language is missing from a group. Do not label a snippet with a language it is not written in.
+
+Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.
