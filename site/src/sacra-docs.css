@@ -81,3 +81,13 @@
 @media(max-width:600px){
   .s-doc-shell{padding:0 16px}.s-doc-topbar{min-height:62px;gap:14px;flex-wrap:wrap;padding:10px 0}.s-doc-brand{min-width:0;flex:1}.s-doc-topnav{order:3;width:100%;gap:16px}.s-doc-topnav a{height:34px;font-size:10px}.s-doc-hero{padding:32px 0 24px}.s-doc-hero__row{display:block}.s-doc-version{margin-top:22px}.s-doc-layout{padding-top:24px}.s-doc-section__head{grid-template-columns:32px minmax(0,1fr);gap:12px}.s-doc-section h2{font-size:20px}.s-doc-lang__tabs{gap:18px}.s-doc-code pre{font-size:10px;padding:15px}.s-doc-pager{grid-template-columns:1fr}
 }
+
+/* Postavki refresh: local overflow, stable reading column, keyboard tab focus. */
+.s-doc-prose p,.s-doc-prose li { overflow-wrap:anywhere; }
+.s-doc-lang,.s-doc-pair > *,.s-doc-code { min-width:0; max-width:100%; }
+.s-doc-lang__tabs .s-tab:focus-visible { outline-offset:-3px; }
+.s-doc-lang__panel { min-width:0; }
+.s-doc-prose p,.s-doc-prose li { color:var(--s-color-muted); }
+.s-doc-code pre { color:var(--s-color-text); }
+.s-doc-prose .s-code-float { margin-top:16px; }
+@media(max-width:600px) { .s-doc-copy { width:44px; height:44px; min-height:44px; flex-basis:44px; } }

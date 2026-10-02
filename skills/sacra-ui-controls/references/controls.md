@@ -7,3 +7,8 @@ Custom select requirements: hidden native select remains authoritative; visible 
 Checkbox requirements: native checkbox input remains in DOM, custom visual uses SACRA graphite/yellow tokens, focus remains visible.
 
 Copy requirements: only successful clipboard completion may produce green check + “Скопировано” toast; failure uses explicit error/manual fallback. Focus yellow is independent from success green.
+
+## Postavki refresh
+
+Use `SacraUpload.mount(root,{maxFiles,maxBytes,onSubmit})` for camera/file pickers and removable previews. Preserve whole-batch validation, file order, pending controls, error retention and Object URL cleanup. Source defaults are not global product rules; transport belongs to the host app.
+The full source map is `site/docs/UPSTREAM-POSTAVKI.md` in the global or local kit.

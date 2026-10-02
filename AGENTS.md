@@ -28,3 +28,7 @@ Reusable agent skills:
 For documentation UI, use `site/src/sacra-docs.css`, `site/src/sacra-docs.js`, and `site/docs/DOCUMENTATION.md`; examples define design/interaction only, never a target project's API facts.
 
 For non-trivial changes run the smallest relevant check under `site/tests/`. Keep root `index.html` externalized: do not bake CSS/JS/WASM back into it.
+
+## Postavki frontend refresh
+
+Use `site/examples/postavki.html`, `site/examples/documentation-code.html` and `site/docs/UPSTREAM-POSTAVKI.md` for the newly extracted patterns. Keep source app APIs out of kit demos; reuse `SacraUpload` and `SacraUtils` rather than writing another picker/clipboard helper.
