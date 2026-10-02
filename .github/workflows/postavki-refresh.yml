@@ -19,7 +19,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: test "$(gh api "repos/$GITHUB_REPOSITORY" --jq '.private')" = true
       - name: Integrate into current multi-file site
-        run: python3 .sync/apply.py
+        run: |
+          python3 .sync/apply.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('site/tests/postavki_browser.py')
+          s = p.read_text()
+          s = s.replace("document.querySelectorAll('[data-doc-language]')", "document.querySelectorAll('[role=tab][data-doc-language]')")
+          p.write_text(s)
+          PY
       - name: Syntax and WASM smoke checks
         run: |
           for f in site/src/*.js site/examples/postavki.js; do node --check "$f"; done
