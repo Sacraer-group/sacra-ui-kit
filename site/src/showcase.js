@@ -53,4 +53,29 @@ $$('[data-chart-card]').forEach(card=>{
 $$('[data-chart-filter]').forEach(b=>b.addEventListener('click',()=>{let visible=0;$$('[data-chart-filter]').forEach(t=>t.setAttribute('aria-pressed',String(t===b)));$$('[data-chart-card]').forEach(c=>{c.hidden=b.dataset.chartFilter!=='all'&&c.dataset.group!==b.dataset.chartFilter;if(!c.hidden)visible++;});$('#chart-visible-count').textContent=visible+' / 12 типов';}));
 $$('[data-copy-code]').forEach(b=>b.addEventListener('click',()=>copy($('#'+b.dataset.copyCode).textContent,{trigger:b,message:'JS-пример в буфере обмена.'})));
 if($('#workspace-demo'))app.workspace=SacraWorkspace.mount($('#workspace-demo'),{persist:true});
+
+function bootWebThemes(){
+ const finish=()=>{
+  if(!g.SacraThemes||$('#sacra-theme-select'))return;
+  const host=$('.ds-top-actions');if(!host)return;
+  const wrap=document.createElement('label');wrap.className='sacra-theme-control';
+  const caption=document.createElement('span');caption.textContent='THEME';
+  const select=document.createElement('select');select.className='s-select';select.id='sacra-theme-select';select.setAttribute('aria-label','Палитра SACRA UI');
+  for(const theme of g.SacraThemes.all){const option=document.createElement('option');option.value=theme.id;option.textContent=theme.name;select.append(option);}
+  wrap.append(caption,select);host.prepend(wrap);
+  const refresh=()=>{
+   for(const chart of app.charts.values()){const style=getComputedStyle(chart.host);for(const key of Object.keys(chart.colors)){const role=key==='border'?'border-strong':key,val=style.getPropertyValue('--s-color-'+role).trim();if(val)chart.colors[key]=val;}chart.render();}
+   for(const view of [app.motion,app.hero,...app.previews]){if(!view)continue;view.updatePalette?.();view.draw?.();view.report?.();}
+  };
+  const applied=g.SacraThemes.restore({persist:false});select.value=applied.id;
+  select.addEventListener('change',()=>{const theme=g.SacraThemes.apply(select.value,{persist:true});refresh();g.SacraControls?.refresh(select);notify('Палитра: '+theme.name);});
+  g.SacraControls?.enhance(wrap);g.SacraControls?.refresh(select);refresh();
+  document.addEventListener('keydown',event=>{if(event.defaultPrevented||event.ctrlKey||event.metaKey||event.altKey||event.key!=='t'||event.target.matches('input,textarea,select,[contenteditable=true]'))return;event.preventDefault();const control=g.SacraControls?.get(select);if(control){control.button.focus();control.open();}else select.focus();});
+ };
+ if(g.SacraThemes){finish();return;}
+ const source=[...document.scripts].find(node=>/src\/showcase\.js(?:$|[?#])/.test(node.src));if(!source)return;
+ const script=document.createElement('script');script.src=new URL('sacra-themes.js',source.src).href;script.onload=finish;script.onerror=()=>console.warn('SACRA themes helper failed to load');document.head.append(script);
+}
+bootWebThemes();
+
 })(window);

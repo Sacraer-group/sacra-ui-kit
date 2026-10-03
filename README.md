@@ -183,7 +183,7 @@ Use `sacra-ui-tui` for terminal layouts/interactions and `sacra-ui-tui-charts` f
 
 ## SACRA contract
 
-- Preserve the graphite/yellow `--s-*` tokens.
+- Preserve semantic `--s-color-*` roles. SACRA Graphite is the default; alternate palettes may remap colors only.
 - `s-*` is reusable product UI; `ds-*` is showcase/documentation-only.
 - Yellow focus is keyboard navigation state; green check/toast is success feedback.
 - Custom selects remain backed by native `select` values/events.
@@ -207,3 +207,10 @@ Source commit: `d74d09d357cf184026973dbb9d055f2ea91894a2`. Core SACRA UI 1.4.3 t
 The main `index.html` includes a working upload specimen and links to both examples. All runtime CSS/JS stays in `site/`; no code is baked into the entrypoint. The existing global Codex update command downloads the web site, TUI reference and all seven skills together.
 
 UI checks: `python site/tests/postavki_browser.py` (requires Playwright + Chromium; `SACRA_CHROMIUM` may name an installed binary). No OCR service is contacted. These are not Safari or real-device camera tests.
+
+
+## Web semantic themes
+
+The web reference supports the same eight semantic palette families as the TUI. Graphite remains the default. Use `site/src/sacra-themes.js` or inspect `site/themes.json`. Palette changes are color-only: layout, spacing, radii, typography, DOM structure, navigation and keyboard behavior stay unchanged.
+
+The main web showcase injects a theme selector automatically. Product integrations load `sacra-ui.css`, then `src/sacra-themes.js`, and call `SacraThemes.restore()` or `SacraThemes.apply(id)`.

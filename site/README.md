@@ -8,3 +8,6 @@ Structured source package for the SACRA Technical Editorial UI system. The repos
 - `docs/` design/API/QA reference
 - `scripts/` build helpers
 - `tests/` smoke/regression checks
+
+- `themes.json` + `src/sacra-themes.js` semantic web palettes (Graphite default + seven optional families)
+- `docs/THEMES.md` palette contract and runtime usage
