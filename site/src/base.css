@@ -340,8 +340,13 @@ textarea.s-input { min-height: 96px; resize: vertical; }
 .s-chart { min-width:0; position:relative; }
 .s-chart__plot svg { display:block; width:100%; height:auto; overflow:visible; }
 .s-chart [data-point] { cursor:crosshair; outline:none; }
-.s-chart [data-point]:focus { stroke:var(--s-color-text); stroke-width:3px; opacity:1; }
-.s-chart [data-point].is-selected { stroke:var(--s-color-text); stroke-width:2.5px; }
+.s-chart [data-point]:focus { opacity:1; }
+.s-chart :is(rect,circle,path,polygon,line,polyline)[data-point]:focus,
+.s-chart [data-point]:focus > :is(rect,circle,path,polygon,line,polyline) { stroke:var(--s-color-text); stroke-width:3px; }
+.s-chart [data-point]:focus text { stroke:none; }
+.s-chart :is(rect,circle,path,polygon,line,polyline)[data-point].is-selected,
+.s-chart [data-point].is-selected > :is(rect,circle,path,polygon,line,polyline) { stroke:var(--s-color-text); stroke-width:2.5px; }
+.s-chart [data-point].is-selected text { stroke:none; }
 .s-chart__legend { display:flex; align-items:center; flex-wrap:wrap; gap:4px 14px; min-height:25px; }
 .s-chart__legend-item { display:inline-flex; align-items:center; gap:7px; padding:4px 0; border:0; background:none; color:var(--s-color-muted); font-size:10px!important; }
 .s-chart__legend-item i { display:block; width:13px; height:7px; }
