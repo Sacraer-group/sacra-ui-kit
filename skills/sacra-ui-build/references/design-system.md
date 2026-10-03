@@ -12,3 +12,8 @@ Never use documentation-only `ds-*` classes in product UI. Keep keyboard focus v
 
 For a task list + detail view or image upload, start with `site/examples/postavki.html`, `site/src/sacra-operations.css` and `site/src/sacra-upload.js`. Keep the selected task edge, local scroll containers and calm result cards.
 The full source map is `site/docs/UPSTREAM-POSTAVKI.md` in the global or local kit.
+
+
+## Web themes
+
+Graphite is the default palette. Optional semantic role palettes: Nord, Gruvbox Dark, Dracula, Tokyo Night, Solarized Dark, Solarized Light and Mono Graphite. Use `site/src/sacra-themes.js` in the full kit. Themes change `--s-color-*` only; geometry and behavior stay invariant.

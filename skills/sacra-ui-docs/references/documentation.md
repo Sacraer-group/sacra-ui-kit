@@ -12,3 +12,8 @@ Keep content project-specific. The SACRA examples define visual structure and in
 
 Use `site/examples/documentation-code.html` for six-language synchronized code tabs and copy buttons. Preserve tab/panel ARIA links and a visible fallback panel if a language is missing from a group. Do not label a snippet with a language it is not written in.
 The full source map is `site/docs/UPSTREAM-POSTAVKI.md` in the global or local kit.
+
+
+## Web themes
+
+Documentation may use the shared eight semantic web palettes. Theme changes are color-only and must not alter reading/layout/navigation behavior.

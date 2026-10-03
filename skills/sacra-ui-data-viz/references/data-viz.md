@@ -10,3 +10,8 @@ Visuals stay within the SACRA palette: graphite canvas/surfaces and yellow prima
 
 For document-processing dashboards, reuse `site/examples/postavki.html` metric strip and state/detail cards. A processed-page counter is not an overall completion percentage. Demo queue values are not telemetry; never replace measured WASM statistics with synthetic data.
 The full source map is `site/docs/UPSTREAM-POSTAVKI.md` in the global or local kit.
+
+
+## Web themes
+
+Graphite is the default; optional web palettes remap semantic `--s-color-*` roles only. Canvas/SVG renderers that cached colors refresh after a theme change without changing data bounds or geometry.

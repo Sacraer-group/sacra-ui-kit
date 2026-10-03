@@ -17,3 +17,5 @@
 
 Run `python site/tests/postavki_browser.py` for uploads, local queue/detail, copy success/failure, language groups and responsive checks. Verify result grids use `minmax(0,1fr)` and code/table overflow stays local. Browser MIME checks do not replace server validation.
 The full source map is `site/docs/UPSTREAM-POSTAVKI.md` in the global or local kit.
+
+- [ ] If web themes are enabled, all eight palettes preserve layout/geometry/keyboard behavior and only remap semantic color roles.
