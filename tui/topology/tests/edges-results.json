@@ -1,0 +1,12 @@
+{
+  "cases": 1280,
+  "compact": 512,
+  "live_resize_zoom_checks": 52,
+  "adapter_and_content_growth": "passed",
+  "missing_slots": "passed",
+  "play_pause": "passed",
+  "reduced_motion": "passed",
+  "page_errors": [],
+  "browser": "Chromium",
+  "method": "local HTML/CSS/JS byte fixtures (no network)"
+}

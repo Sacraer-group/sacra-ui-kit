@@ -1,0 +1,11 @@
+{
+  "name": "@sacra/tui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Native SACRA terminal blocks via the shared Go render worker",
+  "exports": { ".": { "types": "./index.d.ts", "import": "./index.mjs" } },
+  "types": "./index.d.ts",
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test test.mjs" }
+}

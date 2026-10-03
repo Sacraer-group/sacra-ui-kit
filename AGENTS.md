@@ -29,6 +29,7 @@ Reusable agent skills:
 - `skills/sacra-ui-docs`
 - `skills/sacra-ui-tui`
 - `skills/sacra-ui-tui-charts`
+- `skills/sacra-ui-tui-sdk`
 - `skills/sacra-ui-audit`
 
 For documentation UI, use `site/src/sacra-docs.css`, `site/src/sacra-docs.js`, and `site/docs/DOCUMENTATION.md`; examples define design/interaction only, never a target project's API facts.
@@ -44,3 +45,11 @@ For non-trivial changes run the smallest relevant check under `site/tests/`. Kee
 ## Postavki frontend refresh
 
 Use `site/examples/postavki.html`, `site/examples/documentation-code.html` and `site/docs/UPSTREAM-POSTAVKI.md` for the newly extracted patterns. Keep source app APIs out of kit demos; reuse `SacraUpload` and `SacraUtils` rather than writing another picker/clipboard helper.
+
+## Native terminal SDK
+
+Native reusable blocks live in `tui/sdk/`; start with its `README.md`, `docs/CONTRACT.md`, `docs/UNICODE.md` and `docs/QA.md`. `tui/topology/` preserves the user-supplied arrows/scroll browser fix, with adapter-data safety changes. Do not replace the existing `tui/index.html` lab.
+
+Use `sacra-ui-tui-sdk` for actual native integration: Go in-process, Python and JS/TS through one persistent Go JSONL worker. Other languages use the wire contract; do not invent independent ports. Host applications own input, timers, network adapters, terminal modes and state. Synthetic browser animation requires explicit `session.source: synthetic`.
+
+SDK 0.1 supports 12 block types, not every Lab form or native Pixels/Octant/Kitty graphics. See `tui/docs/NATIVE-SDK.md` for the implementation status superseding historical future-native notes. Run `make test` in `tui/sdk`, plus `make test-browser` for browser changes. Cross-compilation is not native execution, and the conservative Unicode profile is not full UAX #29. Never commit binaries, font files, credentials or test caches.

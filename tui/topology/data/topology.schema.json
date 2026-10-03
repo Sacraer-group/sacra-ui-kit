@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://sacra.local/schemas/agent-topology.json",
+  "title":"SACRA Agent Topology Data",
+  "type":"object",
+  "required":["session","nodes"],
+  "properties":{
+    "session":{"type":"object","required":["id"],"additionalProperties":true},
+    "runtime":{"type":"object","additionalProperties":true},
+    "nodes":{"type":"array","minItems":1,"items":{"type":"object","required":["id","slot","role","model","state"],"properties":{"id":{"type":"string"},"slot":{"enum":["main","router","worker1","worker2","worker3","architect","review"]},"role":{"type":"string"},"model":{"type":"object","required":["name"],"additionalProperties":true},"state":{"enum":["idle","queued","running","done","error","blocked","disabled"]},"task":{"type":"string"},"params":{},"metrics":{}},"additionalProperties":true}},
+    "events":{"type":"array","items":{"type":"object","additionalProperties":true}},
+    "extra":{}
+  },
+  "additionalProperties":true
+}

@@ -9,3 +9,12 @@ Keyboard is primary: Normal/Input/Confirm modes, Escape backs out one level, des
 SACRA Graphite is default. Alternate palettes remap the same semantic roles only; geometry and behavior never change with the theme. Mono must remain understandable without color.
 
 The browser lab is a reference, not a terminal transport. Native implementations must handle actual terminal cell width, Unicode graphemes, resize, terminal restoration and capability probing.
+
+## Native SDK
+
+`tui/sdk/` provides Go blocks, Python and JS/TS bindings to a persistent Go worker,
+and a versioned JSONL contract for other languages. Use `sacra-ui-tui-sdk` and
+read its limitations. Native SDK 0.1 has 12 block types and no Pixels/Octant or
+full Lab forms. Host applications own input/network/time and terminal modes.
+`tui/topology/` preserves the 0.3.2 browser arrows/scroll fix. Adapter data is
+rendered literally; synthetic animation requires explicit source selection.

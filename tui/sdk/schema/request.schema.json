@@ -1,0 +1,418 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sacra.local/schemas/native/request-v1.json",
+  "title": "SACRA native JSONL request v1",
+  "type": "object",
+  "required": [
+    "version",
+    "op"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string"
+    },
+    "op": {
+      "enum": [
+        "render",
+        "hydrate",
+        "info"
+      ]
+    },
+    "block": {
+      "$ref": "#/$defs/block"
+    },
+    "options": {
+      "$ref": "#/$defs/options"
+    },
+    "template": {},
+    "bindings": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "render"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "block",
+          "options"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "hydrate"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "template",
+          "bindings"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "slot": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "task": {
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "",
+            "idle",
+            "queued",
+            "running",
+            "done",
+            "error",
+            "blocked",
+            "disabled",
+            "stale"
+          ]
+        },
+        "model": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "extra": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "topology": {
+      "type": "object",
+      "required": [
+        "nodes"
+      ],
+      "properties": {
+        "session": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "runtime": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "nodes": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "extra": {}
+      },
+      "additionalProperties": true
+    },
+    "block": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "text",
+            "status",
+            "panel",
+            "row",
+            "column",
+            "kv",
+            "table",
+            "meter",
+            "sparkline",
+            "events",
+            "node",
+            "topology"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4000
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "gap": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "scroll": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "samples": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 512,
+          "items": {
+            "$ref": "#/$defs/block"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "object",
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {}
+            }
+          }
+        },
+        "columns": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "string"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "events": {
+          "type": "array",
+          "maxItems": 10000,
+          "items": {
+            "type": "object"
+          }
+        },
+        "node": {
+          "$ref": "#/$defs/node"
+        },
+        "data": {
+          "$ref": "#/$defs/topology"
+        }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "node"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "node"
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "topology"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "data"
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "panel"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "children"
+            ],
+            "properties": {
+              "children": {
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "table"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "columns"
+            ],
+            "properties": {
+              "columns": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "options": {
+      "type": "object",
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4000
+        },
+        "scrollY": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "theme": {
+          "enum": [
+            "",
+            "sacra",
+            "nord",
+            "gruvbox",
+            "dracula",
+            "tokyo",
+            "solarized",
+            "solarized-light",
+            "mono"
+          ]
+        },
+        "color": {
+          "enum": [
+            "",
+            "none",
+            "ansi16",
+            "truecolor"
+          ]
+        },
+        "ascii": {
+          "type": "boolean"
+        },
+        "selectedId": {
+          "type": "string"
+        },
+        "focusId": {
+          "type": "string"
+        },
+        "activeEdges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

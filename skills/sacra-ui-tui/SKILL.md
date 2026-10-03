@@ -3,7 +3,7 @@ name: sacra-ui-tui
 description: Build or adapt terminal user interfaces with the SACRA TUI design system. Use for TUIs, terminal dashboards, CLI workspaces, process/task monitors, terminal forms, tables, inspectors, command palettes, theme pickers, keyboard navigation, and terminal-first layouts that should follow SACRA rather than web UI conventions.
 metadata:
   author: Sacraer-group
-  version: "1.0.0"
+  version: "1.1.0"
   argument-hint: <terminal-screen-or-feature>
 ---
 
@@ -19,7 +19,7 @@ Resolve the TUI reference in this order:
 2. `$HOME/.codex/sacra-ui-kit/tui/`;
 3. bundled `references/tui-design.md`.
 
-When the full reference is available, inspect `tui/index.html`, `tui/docs/DESIGN.md`, `tui/docs/COMPONENTS.md`, `tui/docs/THEMES.md`, `tui/examples/`, and the relevant tests.
+When the full reference is available, inspect `tui/index.html`, `tui/docs/DESIGN.md`, `tui/docs/COMPONENTS.md`, `tui/docs/THEMES.md`, `tui/examples/`, and the relevant tests. For native implementation also read `tui/docs/NATIVE-SDK.md` and `tui/sdk/README.md`.
 
 ## Geometry
 
@@ -58,8 +58,8 @@ Themes change semantic color roles only. They must not change geometry, labels, 
 
 Follow the target project's language and existing TUI stack first. Keep data → state → layout → renderer → input separate. Avoid adding a second framework for one screen. The browser lab is a visual/state reference only; do not ship its DOM/Canvas code as a native terminal backend.
 
-For another project, copy or translate the required contracts from `tui/`; do not runtime-link the private reference checkout.
+For another project, import or vendor the required blocks from `tui/sdk/`; do not runtime-link the private reference checkout. Use `sacra-ui-tui-sdk` for Go/Python/JS/TS integration or the JSONL protocol. SDK 0.1 is a subset of the Lab component vocabulary, with explicit capability and Unicode limits; do not invent missing forms or Pixels/Octant backends.
 
 ## Verification
 
-At minimum check narrow and wide terminal sizes, resize, keyboard-only operation, focus vs selection, modal/confirm escape paths, missing/stale data, theme changes, and cleanup/restoration of terminal state on exit/error. Use the smallest relevant checks under `tui/tests/` when working in this kit.
+At minimum check narrow and wide terminal sizes, resize, keyboard-only operation, focus vs selection, modal/confirm escape paths, missing/stale data, theme changes, and cleanup/restoration of terminal state on exit/error. Use the smallest relevant checks under `tui/tests/` when working in this kit. For native blocks and bindings run `make test` in `tui/sdk`; for topology browser changes also run `make test-browser` there.

@@ -1,0 +1,17 @@
+{
+  "browser": "144.0.7559.96",
+  "engine": "Chromium",
+  "full_page_scroll_and_constant_height": "passed",
+  "nested_event_and_code_scroll": "passed",
+  "horizontal_scroll": "passed",
+  "real_animation_and_wheel_scroll": "passed",
+  "focus_card_svg_edge_and_feed_identity": "passed",
+  "same_session_adapter_selection_and_events": "passed",
+  "escape_theme_and_native_arrow_scroll": "passed",
+  "getScreenCTM_independence": "passed",
+  "transformed_host": "passed",
+  "painted_port_checks": 416,
+  "additional_dpr_viewport_scale_cases": 30,
+  "page_errors": [],
+  "native_safari_tested": false
+}

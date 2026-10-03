@@ -1,0 +1,42 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Проверки SDK 0.1.0 и topology 0.3.3</title><link rel="stylesheet" href="../docs/docs.css"></head><body><nav><a href="../README.html">SACRA / TUI SDK</a> · <a href="../docs/CONTRACT.html">Протокол</a> · <a href="../docs/QA.html">Проверки</a> · <a href="../../topology/index.html">Браузерный стенд</a></nav><main><h1>Проверки SDK 0.1.0 и topology 0.3.3</h1>
+<p>Основа GitHub: <code>a88b177e2e6575c09c801bcf6ad473bc5aaa8d42</code>.
+Пользовательский архив: <code>sacra-tui-topology-0.3.2-arrows-scroll-fixed(1).zip</code>.
+SHA-256: <code>06bdb1955d036b6fd6f4c5e1232a63247e93f095db050193a9020bb111b662a4</code>.</p>
+<h2>Реально выполнено</h2>
+<ul>
+<li>Go 1.23.2 / Linux amd64: <code>go test -race ./...</code>, <code>go vet ./...</code>, сборка CLI.</li>
+<li>Нативные кадры: 8 тем × 10 ширин × 5 высот; 12 типов блоков;
+маршруты стрелок на каждой ширине 96..240; single fan-out/fan-in,
+отсутствие пересечений, missing slots, compact/list fallback.</li>
+<li>Отдельные проверки null/0, Unicode-клеток и clipping, control injection,
+fixed bars/local scroll, focus/selection, invalid/bounded input,
+typed placeholders и лимита расширения шаблонов.</li>
+<li>Python 3.13.5: 7 интеграционных тестов, включая живой worker, timeout,
+malformed JSONL recovery, <code>--once</code> примеры и input limit.</li>
+<li>Node 22.16.0: 3 теста, включая concurrent requests, missing executable
+и timeout cleanup; TypeScript strict type-check пройден.</li>
+<li>JSON Schema проверена вместе с реальными запросами к worker.</li>
+<li>Linux PTY: resize 160×44 → 80×24, SIGINT/SIGTERM; экран/курсор CLI
+восстановлены. Python curses и Node raw mode: q-exit восстанавливает termios.</li>
+<li>Browser Chromium 144.0.7559.96: smoke, 1280 edge combinations,
+52 resize/scale checks, 416 painted ports, 30 DPR/viewport checks,
+wheel/animation/local scroll, focus/DOM identity, reduced motion.</li>
+<li>Browser adapter: states/events не заменяются демо; HTML/script strings
+выводятся текстом; synthetic confidence bars не появляются.</li>
+<li>Кросс-компиляция CLI: darwin/arm64, darwin/amd64, windows/amd64 — успешно.
+Эти бинарники не запускались на целевых ОС.</li>
+</ul>
+<h2>Границы результата</h2>
+<p>Нативный Safari/macOS/Windows не тестировался. Browser fixtures загружались
+из локальных bytes в Playwright, не через пользовательский Safari file://.
+Unicode не объявляется полностью UAX #29-конформным; см. <code>UNICODE.md</code>.
+Pixels/Octant/Kitty native backends и полный набор terminal forms/dialogs не входят
+в эту версию. Go — native package; Python/JS/TS — wrappers над Go worker,
+не независимые реализации layout. Rust/C#/Java/C++ SDK-пакетов нет: есть JSONL.</p>
+<p>SDK/runtime не исполняет команды или provider calls. Демо маркировано synthetic.
+API keys не включены. Шрифты, зависимости из node_modules и бинарники не коммитятся.</p>
+<h2>Воспроизвести</h2>
+<p><code>make test</code> из <code>tui/sdk</code>; <code>make test-browser</code> для браузерных регрессий.
+Для браузерных тестов нужен Playwright и Chromium; <code>SACRA_CHROMIUM</code> задаёт путь.
+Дополнительная полная матрица: <code>python3 ../topology/tests/regression_matrix.py</code>.</p>
+</main></body></html>

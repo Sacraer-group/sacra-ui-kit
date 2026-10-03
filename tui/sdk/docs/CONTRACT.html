@@ -1,0 +1,73 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JSONL / SACRA TUI SDK v1</title><link rel="stylesheet" href="../docs/docs.css"></head><body><nav><a href="../README.html">SACRA / TUI SDK</a> · <a href="../docs/CONTRACT.html">Протокол</a> · <a href="../docs/QA.html">Проверки</a> · <a href="../../topology/index.html">Браузерный стенд</a></nav><main><h1>JSONL / SACRA TUI SDK v1</h1>
+<p>Один процесс <code>sacra-tui --stdio</code>, один JSON-объект на строку UTF-8, один JSON-ответ на запрос.
+Никакие кадры, логи или ANSI-команды вне JSON в stdout не печатаются. Диагностика завершения — stderr.</p>
+<h2>Render</h2>
+<pre><code class="language-json">{&quot;version&quot;:1,&quot;id&quot;:&quot;req-1&quot;,&quot;op&quot;:&quot;render&quot;,&quot;block&quot;:{&quot;type&quot;:&quot;panel&quot;,&quot;title&quot;:&quot;AGENT&quot;,&quot;children&quot;:[{&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;my-model&quot;}]},&quot;options&quot;:{&quot;width&quot;:60,&quot;height&quot;:8,&quot;theme&quot;:&quot;sacra&quot;,&quot;color&quot;:&quot;none&quot;}}
+</code></pre>
+<p>Ответ: <code>version</code>, строковый <code>id</code>, <code>ok</code> и <code>frame</code>; при ошибке — <code>ok:false</code> и <code>error</code>.
+<code>frame.lines</code> имеет ровно <code>height</code> строк, каждая — <code>width</code> клеток по профилю SDK.
+<code>frame.runs[y]</code> содержит <code>{text,fg,bg}</code> с названиями семантических цветовых ролей.
+<code>frame.ansi</code> появляется при <code>color:&quot;ansi16&quot;</code> или <code>&quot;truecolor&quot;</code>; содержит только SGR/reset и переводы строк. По умолчанию нет цветов и нет ANSI.</p>
+<p><code>contentHeight</code>/<code>scrollY</code> описывают корневую область. <code>regions</code> содержит hit/selection rectangles с <code>id</code>, <code>type</code>, <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>. Частично видимые regions могут иметь отрицательный y; перед hit-testing пересеките их с viewport. Вложенная прокрутка задаётся в <code>block.scroll</code>.</p>
+<p>Важные options:</p>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>Целые клетки: 1..500 × 1..4000, суммарно не более 200000.</td>
+</tr>
+<tr>
+<td><code>theme</code></td>
+<td>sacra/nord/gruvbox/dracula/tokyo/solarized/solarized-light/mono.</td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>none/ansi16/truecolor.</td>
+</tr>
+<tr>
+<td><code>ascii</code></td>
+<td>ASCII для геометрии; содержимое не транслитерируется.</td>
+</tr>
+<tr>
+<td><code>selectedId</code></td>
+<td>Выбранный узел: <code>&gt;</code> и отдельный фон.</td>
+</tr>
+<tr>
+<td><code>focusId</code></td>
+<td>Фокус: метка FOCUS на рамке и accent; выбор не меняется.</td>
+</tr>
+<tr>
+<td><code>activeEdges</code></td>
+<td>IDs рёбер для подсветки; фактические события определяет host.</td>
+</tr>
+<tr>
+<td><code>scrollY</code></td>
+<td>Прокрутка всего корня. Для фиксированных баров используйте <code>block.scroll</code> у контента.</td>
+</tr>
+</tbody>
+</table>
+<p>Табличные row IDs: <code>&lt;block.id&gt;/&lt;zero-based-row-index&gt;</code>.
+Рёбра встроенной топологии: <code>main-router</code>, <code>router-fanout</code>, <code>router-&lt;worker.id&gt;</code>, <code>&lt;worker.id&gt;-review</code>, <code>merge-review</code>, <code>architect-review</code>. Доступен Go <code>LayoutTopology</code>, возвращающий узлы и ортогональные маршруты до растеризации.</p>
+<h2>Hydrate</h2>
+<pre><code class="language-json">{&quot;version&quot;:1,&quot;id&quot;:&quot;req-2&quot;,&quot;op&quot;:&quot;hydrate&quot;,&quot;template&quot;:{&quot;model&quot;:&quot;{{models.main}}&quot;,&quot;context&quot;:&quot;{{limits.context}}&quot;,&quot;enabled&quot;:&quot;{{flags.enabled}}&quot;},&quot;bindings&quot;:{&quot;models&quot;:{&quot;main&quot;:&quot;my-model&quot;},&quot;limits&quot;:{&quot;context&quot;:65536},&quot;flags&quot;:{&quot;enabled&quot;:false}}}
+</code></pre>
+<p>Ответ возвращает <code>data</code>. Точное совпадение сохраняет JSON-тип, включая null/false/0/array/object; частичное совпадение заменяется текстом. Путь проходит по объектным ключам через точку. Индексы массива и выражения не поддерживаются. Зарезервированные prototype-paths запрещены. Ошибка неизвестного binding не портит следующий запрос.</p>
+<h2>Info</h2>
+<pre><code class="language-json">{&quot;version&quot;:1,&quot;id&quot;:&quot;req-3&quot;,&quot;op&quot;:&quot;info&quot;}
+</code></pre>
+<p>Возвращает SDK version, protocol version, palette IDs и типы блоков.</p>
+<h2>Ошибки и ограничения</h2>
+<p>Вход — до 1 MiB на строку. Некорректный JSON возвращает ошибку, процесс продолжает читать следующие строки; превышение лимита строки закрывает worker с ненулевым exit code. Максимум 512 блоков и глубина 16; template depth 32; расширение placeholders ограничено бюджетом 1 MiB. NaN/Infinity недопустимы: преобразуйте пропуск в null в адаптере, не в 0.</p>
+<p>Версия 1 принимает только <code>render</code>, <code>hydrate</code>, <code>info</code>. Это не RPC для запуска инструментов, файлового доступа, сетевых вызовов или shell-команд. Метаданные в node — данные, а не исполняемая конфигурация.</p>
+<p>CLI/SDK не сохраняет API keys или события. Не передавайте секреты, которые не должны появляться в инспекторе, кадре, дампе JSON или логе host-приложения.</p>
+<p>Python/JS используют исполняемый файл без shell. Timeout/повреждённый ответ закрывают worker; late-response не может быть принят за следующий кадр. Обычная validation error не перезапускает процесс. Python Client сериализует запросы; JS допускает до 64 ожидающих запросов. При удалении view закройте владеющий клиент.</p>
+<h2>Встраивание в ещё один язык</h2>
+<p>Запустите <code>[path-to-sacra-tui, &quot;--stdio&quot;]</code> как subprocess без shell, передайте JSONL, прочитайте один ответ с тем же id. Примените собственный timeout, лимит ответа и cleanup. Отрисуйте <code>lines</code> либо <code>runs</code> средствами своего терминального фреймворка. Никакой отдельной копии layout/arrow math не требуется.</p>
+<p>Готовые Go/Python/JS/TS реализации поставляются в этом SDK. Отдельных Rust/C#/Java/C++ пакетов в версии 0.1 нет; для них определён wire contract.</p>
+</main></body></html>

@@ -1,0 +1,15 @@
+{
+  "session": {"id":"{{session.id}}","label":"{{session.label}}","source":"{{session.source}}"},
+  "runtime": {"maxThreads":"{{runtime.maxThreads}}","contextUsed":"{{runtime.contextUsed}}","contextMax":"{{runtime.contextMax}}"},
+  "nodes": [
+    {"id":"main","slot":"main","role":"{{nodes.main.role}}","model":{"provider":"{{nodes.main.provider}}","name":"{{nodes.main.model}}","effort":"{{nodes.main.effort}}"},"state":"{{nodes.main.state}}","task":"{{nodes.main.task}}","params":{"context":"{{nodes.main.context}}","temperature":"{{nodes.main.temperature}}"},"metrics":{"tokens":"{{nodes.main.tokens}}","calls":"{{nodes.main.calls}}"}},
+    {"id":"router","slot":"router","role":"{{nodes.router.role}}","model":{"provider":"{{nodes.router.provider}}","name":"{{nodes.router.model}}","effort":"{{nodes.router.effort}}"},"state":"{{nodes.router.state}}","task":"{{nodes.router.task}}","params":{"threshold":"{{nodes.router.threshold}}"},"metrics":{"forks":"{{nodes.router.forks}}"}},
+    {"id":"worker","slot":"worker1","role":"{{nodes.worker.role}}","model":{"provider":"{{nodes.worker.provider}}","name":"{{nodes.worker.model}}","effort":"{{nodes.worker.effort}}"},"state":"{{nodes.worker.state}}","task":"{{nodes.worker.task}}","params":"{{nodes.worker.params}}","metrics":"{{nodes.worker.metrics}}"},
+    {"id":"explorer","slot":"worker2","role":"{{nodes.explorer.role}}","model":{"provider":"{{nodes.explorer.provider}}","name":"{{nodes.explorer.model}}","effort":"{{nodes.explorer.effort}}"},"state":"{{nodes.explorer.state}}","task":"{{nodes.explorer.task}}","params":"{{nodes.explorer.params}}","metrics":"{{nodes.explorer.metrics}}"},
+    {"id":"researcher","slot":"worker3","role":"{{nodes.researcher.role}}","model":{"provider":"{{nodes.researcher.provider}}","name":"{{nodes.researcher.model}}","effort":"{{nodes.researcher.effort}}"},"state":"{{nodes.researcher.state}}","task":"{{nodes.researcher.task}}","params":"{{nodes.researcher.params}}","metrics":"{{nodes.researcher.metrics}}"},
+    {"id":"architect","slot":"architect","role":"{{nodes.architect.role}}","model":{"provider":"{{nodes.architect.provider}}","name":"{{nodes.architect.model}}","effort":"{{nodes.architect.effort}}"},"state":"{{nodes.architect.state}}","task":"{{nodes.architect.task}}","params":"{{nodes.architect.params}}","metrics":"{{nodes.architect.metrics}}"},
+    {"id":"review","slot":"review","role":"{{nodes.review.role}}","model":{"provider":"{{nodes.review.provider}}","name":"{{nodes.review.model}}","effort":"{{nodes.review.effort}}"},"state":"{{nodes.review.state}}","task":"{{nodes.review.task}}","params":"{{nodes.review.params}}","metrics":"{{nodes.review.metrics}}"}
+  ],
+  "events": "{{events}}",
+  "extra": "{{extra}}"
+}

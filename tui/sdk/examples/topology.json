@@ -1,0 +1,15 @@
+{
+  "session":{"id":"9E31","label":"local demo","source":"synthetic"},
+  "runtime":{"maxThreads":6,"contextUsed":184000,"contextMax":400000},
+  "nodes":[
+    {"id":"main","slot":"main","role":"MAIN / COORDINATOR","model":{"provider":"openai","name":"sol","effort":"high"},"state":"running","task":"plans + writes code","params":{"context":"400k","mode":"write"},"metrics":{"tokens":"184k","calls":"—"}},
+    {"id":"router","slot":"router","role":"FORK / POLICY","model":{"provider":"local","name":"classifier","effort":"code"},"state":"idle","task":"routes low-cost decisions","params":{"threshold":0.82},"metrics":{"forks":"1,397"}},
+    {"id":"worker","slot":"worker1","role":"WORKER","model":{"provider":"openai","name":"sol","effort":"medium"},"state":"idle","task":"edits + runs tests","params":{"write":true},"metrics":{"tokens":"41k","calls":"2 patches"}},
+    {"id":"explorer","slot":"worker2","role":"EXPLORER","model":{"provider":"openai","name":"luna","effort":"medium"},"state":"idle","task":"reads repository","params":{"write":false},"metrics":{"tokens":"29k","calls":"14 reads"}},
+    {"id":"researcher","slot":"worker3","role":"RESEARCHER","model":{"provider":"openai","name":"luna","effort":"medium"},"state":"idle","task":"pulls docs + refs","params":{"network":"read"},"metrics":{"tokens":"18k","calls":"8 reads"}},
+    {"id":"architect","slot":"architect","role":"ARCHITECT / ON CALL","model":{"provider":"openai","name":"astra","effort":"high"},"state":"idle","task":"review at gates only","params":{"write":false,"gates":["before plan","on repeated error","before done"]},"metrics":{"tokens":"224k","calls":"2 reviews"}},
+    {"id":"review","slot":"review","role":"REVIEW / VERIFY","model":{"provider":"openai","name":"sol","effort":"high"},"state":"queued","task":"checks result + approvals","params":{"approval":"required"},"metrics":{"tokens":"—","calls":"pending"}}
+  ],
+  "events":[],
+  "extra":{"branch":"demo","repo":"{{repo.name}}"}
+}

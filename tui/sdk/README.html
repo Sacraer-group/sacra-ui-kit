@@ -1,0 +1,124 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SACRA TUI SDK 0.1.0</title><link rel="stylesheet" href="docs/docs.css"></head><body><nav><a href="README.html">SACRA / TUI SDK</a> · <a href="docs/CONTRACT.html">Протокол</a> · <a href="docs/QA.html">Проверки</a> · <a href="../topology/index.html">Браузерный стенд</a></nav><main><h1>SACRA TUI SDK 0.1.0</h1>
+<p>Нативные терминальные блоки SACRA. <strong>Без браузера, DOM, Electron и WebView.</strong>
+Это библиотека представления, а не агентный рантайм и не исполнитель команд.</p>
+<h2>Что входит</h2>
+<table>
+<thead>
+<tr>
+<th>Слой</th>
+<th>Путь</th>
+<th>Как используется</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Go</td>
+<td><code>go/</code></td>
+<td>Прямой импорт пакета <code>sacratui</code> в процесс приложения.</td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>python/sacra_tui/</code></td>
+<td>Переиспользуемые builders и один долгоживущий процесс Go-рендерера.</td>
+</tr>
+<tr>
+<td>JavaScript / TypeScript</td>
+<td><code>javascript/</code></td>
+<td>ESM-пакет с декларациями типов и асинхронным клиентом того же процесса.</td>
+</tr>
+<tr>
+<td>Другие языки</td>
+<td><code>schema/request.schema.json</code></td>
+<td>JSONL через stdin/stdout; отдельный порт отрисовки не нужен.</td>
+</tr>
+<tr>
+<td>Браузерный референс</td>
+<td><code>../topology/index.html</code></td>
+<td>Сохранены стрелки и прокрутка из пользовательского 0.3.2; есть защитные изменения 0.3.3 для adapter data.</td>
+</tr>
+</tbody>
+</table>
+<p>Python и Node не исполняют Go в своём процессе: нужен собранный <code>sacra-tui</code>.
+Каждый <code>Client</code> запускает его <strong>один раз</strong>, а не на каждый кадр. Node/Python runtime-пакеты и Go-ядро не имеют внешних зависимостей. npm/PyPI-публикации не выполнялись; установка локальная.</p>
+<h2>Быстрый запуск</h2>
+<p>Из каталога <code>tui/sdk</code> в checkout:</p>
+<pre><code class="language-sh">sh scripts/build.sh
+./bin/sacra-tui --demo --color truecolor
+</code></pre>
+<p>Нужен Go 1.23 или новее. Демо использует синтетические данные. <code>Ctrl-C</code> завершает его и восстанавливает экран/курсор. Размер терминала на Linux/macOS перечитывается при каждом кадре; <code>--width</code>/<code>--height</code> задают явный размер.</p>
+<p>Для обычного текстового вывода, перенаправления в файл или проверки без TTY:</p>
+<pre><code class="language-sh">./bin/sacra-tui --snapshot --width 160 --height 44
+./bin/sacra-tui --snapshot --ascii --width 80 --height 32
+</code></pre>
+<p><code>--ascii</code> меняет рамки/стрелки/штрихи, но не транслитерирует русские подписи.
+<code>NO_COLOR</code> и <code>TERM=dumb</code> отключают цвета CLI. Библиотечный <code>Render</code> не читает окружение: приложение само передаёт <code>color</code>.</p>
+<h2>Go: блоки напрямую</h2>
+<p>Module path: <code>github.com/Sacraer-group/sacra-ui-kit/tui/sdk/go</code>.
+Package name: <code>sacratui</code>. Для приватного репозитория используйте собственный доступ к GitHub или локальный <code>replace</code>, не встраивайте токены в SDK.</p>
+<pre><code class="language-go">import tui &quot;github.com/Sacraer-group/sacra-ui-kit/tui/sdk/go&quot;
+
+view := tui.HStack(
+    tui.Panel(&quot;MODEL&quot;, tui.Text(&quot;provider / my-model&quot;)),
+    tui.Panel(&quot;CONTEXT&quot;, tui.Block{
+        Type: &quot;meter&quot;, Title: &quot;context&quot;, Value: tui.Value(25), Max: 100, Unit: &quot;%&quot;,
+    }),
+)
+frame, err := tui.Render(view, tui.Options{Width: 100, Height: 12})
+// Обработайте err. frame.Lines — текст, frame.Runs — семантически окрашенные сегменты.
+// frame.ToANSI(&quot;sacra&quot;, &quot;truecolor&quot;) — SGR, без перемещения курсора.
+</code></pre>
+<p>Готовый пример: <code>cd go &amp;&amp; go run ./examples/blocks</code>.
+Для существующего TUI можно вернуть строки кадра из view-функции или перенести <code>Runs</code> в его cell buffer. <code>Canvas.Text</code>, <code>Box</code>, <code>Fill</code>, <code>Blit</code> доступны для собственных компонентов; <code>NewCanvas</code> паникует при некорректном/неограниченном размере, <code>Render</code> возвращает ошибку.</p>
+<h2>Python</h2>
+<pre><code class="language-sh">export SACRA_TUI_BIN=&quot;$PWD/bin/sacra-tui&quot;
+export PYTHONPATH=&quot;$PWD/python${PYTHONPATH:+:$PYTHONPATH}&quot;
+python3 examples/python_native.py
+</code></pre>
+<p>В Unix-примере используется стандартный <code>curses</code>: Tab — фокус, Enter — выбор, стрелки — прокрутка контента, p — пауза, q — выход. Шапка и нижняя строка не прокручиваются. <code>--once</code> выводит снимок без curses.</p>
+<pre><code class="language-python">from sacra_tui import Client, panel, text
+
+with Client() as client:
+    frame = client.render(panel(&quot;AGENT&quot;, text(&quot;my-model&quot;)), width=60, height=8)
+    print(frame.plain)
+</code></pre>
+<p>Альтернатива PYTHONPATH: локальная установка <code>python3 -m pip install ./python</code>.
+Этот вариант использует setuptools как build dependency; ему может понадобиться сеть, если setuptools не установлен.</p>
+<h2>JavaScript / TypeScript</h2>
+<pre><code class="language-sh">export SACRA_TUI_BIN=&quot;$PWD/bin/sacra-tui&quot;
+node examples/node_native.mjs
+</code></pre>
+<pre><code class="language-js">import {Client, panel, text} from './javascript/index.mjs';
+const client = new Client();
+try {
+  const frame = await client.render(panel('AGENT', text('my-model')), {width:60, height:8});
+  process.stdout.write(frame.lines.join('\n') + '\n');
+} finally {
+  client.close();
+}
+</code></pre>
+<p>Локальная установка пакета: <code>npm install /path/to/sacra-ui-kit/tui/sdk/javascript</code>.
+После этого импортируйте из <code>@sacra/tui</code>. CommonJS-фасад не поставляется; используйте ESM или динамический <code>import()</code>.</p>
+<h2>Данные и плейсхолдеры</h2>
+<p><code>Node</code>: <code>id</code>, <code>slot</code>, <code>role</code>, <code>state</code>, <code>task</code>, <code>model</code>, <code>params</code>, <code>metrics</code>, <code>extra</code>.
+Модели, провайдеры и параметры не захардкожены. Вложенные <code>params</code>/<code>metrics</code>/<code>extra</code> сохраняют JSON-типы. Значения примера — не каталог доступных моделей и не их тарифы.</p>
+<pre><code class="language-python">payload = client.hydrate(template, {
+    &quot;model&quot;: {&quot;name&quot;: &quot;my-model&quot;, &quot;context&quot;: 65536, &quot;enabled&quot;: False}
+})
+</code></pre>
+<p>Точное <code>{{model.context}}</code> превращается в число, <code>{{model.enabled}}</code> — в boolean.
+Внутри строки подстановка становится текстом. Отсутствующий путь — ошибка, а не пустая строка/ноль. Никакого <code>eval</code> и исполнения шаблона нет. Native hydration строже старого browser helper, который оставляет неизвестный placeholder видимым.</p>
+<p><code>events</code>, выбранный узел, фокус, прокрутка, часы и обработка ввода принадлежат вашему приложению. SDK ничего не опрашивает и не очищает данные сам. SSE/WS/HTTP/log reader размещается в host-adapter, передающем новые snapshots.</p>
+<h2>Границы 0.1</h2>
+<p>Нативные блоки: <code>text</code>, <code>status</code>, <code>panel</code>, <code>row</code>, <code>column</code>, <code>kv</code>, <code>table</code>, <code>meter</code>, <code>sparkline</code>, <code>events</code>, <code>node</code>, <code>topology</code>. Это не полный порт всех форм/диалогов старого TUI Lab и не отдельный TUI-фреймворк.</p>
+<p><code>topology</code> рисует схему main → router → до трёх workers → review плюс architect. Узлы связываются по slots, а не по названиям моделей. При ширине &lt;96 клеток или более трёх workers используется список <strong>без ложных последовательных рёбер</strong>. Отдельный узел можно выводить независимо. Это не универсальный layout произвольного DAG.</p>
+<p><code>row</code>/<code>column</code> задают компоновку; <code>height</code> фиксирует высоту, положительный <code>weight</code> в <code>column</code> получает оставшееся пространство. <code>scroll</code> относится к конкретному блоку; <code>options.scrollY</code> прокручивает целый корневой кадр. Для фиксированных header/footer задайте им <code>height:1</code>, контенту — <code>weight:1</code>.</p>
+<p>Восемь палитр меняют только роли цвета. Выходы: plain Unicode, ASCII-рамки, ANSI16, truecolor и сегменты <code>Runs</code>. Pixels/Octant/Kitty-протоколы в native SDK не реализованы; они остаются отдельным направлением графиков в <code>tui/assets</code>.</p>
+<p>Unicode-профиль консервативный, не полный UAX #29. Подробности и ограничения: <code>docs/UNICODE.md</code>. Windows-бинарник проверен только кросс-компиляцией; запуск на Windows и нативном Safari/macOS не подтверждён этим отчётом.</p>
+<h2>Проверки</h2>
+<pre><code class="language-sh">make test
+make test-browser
+</code></pre>
+<p>Runtime не требует зависимостей. Для полного тестового набора нужны Node, TypeScript <code>tsc</code>, Python <code>jsonschema</code>, Playwright + Chromium; PTY/curses-тесты рассчитаны на Unix.</p>
+<p>Протокол: <code>docs/CONTRACT.md</code>. Проверки и происхождение: <code>docs/QA.md</code>.
+Для просмотра документации в браузере открывайте <code>README.html</code> и <code>docs/*.html</code>: у них явно задан UTF-8. Markdown сохранён в UTF-8 как исходник для редакторов.</p>
+</main></body></html>
