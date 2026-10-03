@@ -38,7 +38,7 @@ When the full kit is available, inspect:
 
 ## Visual language
 
-The documentation inherits SACRA UI: graphite canvas/surfaces, yellow navigation/action/focus, SF Mono/Nerd typography, thin rules and technical labels. Keep prose/code surfaces calm; decorative wireframes and motion are not default documentation backgrounds.
+The documentation inherits SACRA UI semantic roles; Graphite is the default palette. Navigation/action/focus use the current accent role, while success/danger stay separate. Keep SF Mono/Nerd typography, thin rules and technical labels. Keep prose/code surfaces calm; decorative wireframes and motion are not default documentation backgrounds.
 
 The examples define **design and interaction**, not the target product's terminology or API contract. Replace demo endpoint names, snippets, version numbers, and copy with facts from the target project.
 

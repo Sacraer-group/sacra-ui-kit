@@ -17,7 +17,7 @@ Resolve the canonical 1.4.3 reference in this order: current `sacra-ui-kit` chec
 
 1. **Reuse** — `s-*` for product UI; `ds-*` showcase-only.
 2. **Tokens** — flag arbitrary colors/spacing/radii duplicating existing `--s-*`.
-3. **Palette** — canvas stays graphite, yellow is action/focus, green/red semantic.
+3. **Palette** — SACRA Graphite is the default. Theme-enabled screens may use only the registered semantic role palettes; accent/focus and success/danger stay separate roles.
 4. **Typography/icons** — SF Mono/Nerd stack and SVG icons.
 5. **Controls** — visible custom select from `SacraControls`; native select remains semantic; copy feedback from `SacraUtils.copy`; focus remains visible.
 6. **Data UI** — local table scrolling, textual statuses, chart labels/data alternative, demo numbers identified.

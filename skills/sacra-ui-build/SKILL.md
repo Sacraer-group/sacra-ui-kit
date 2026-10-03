@@ -1,6 +1,6 @@
 ---
 name: sacra-ui-build
-description: Build or adapt application screens with SACRA UI / Technical Editorial. Use for dashboards, admin panels, forms, tables, navigation, cards, workspaces, landing screens, and other UI that should follow the SACRA graphite/yellow design system.
+description: Build or adapt application screens with SACRA UI / Technical Editorial. Use for dashboards, admin panels, forms, tables, navigation, cards, workspaces, landing screens, and other UI that should follow the SACRA Technical Editorial design system.
 metadata:
   author: Sacraer-group
   version: "1.6.0"
@@ -42,6 +42,8 @@ Use only what the screen needs:
 For another repository, copy the necessary reusable files from `site/` rather than linking back to this private checkout at runtime.
 
 ## Visual contract
+
+Default SACRA Graphite values:
 
 - Canvas `#15191F`; surfaces `#1B2027`; raised `#222831`; inset `#11151A` only for contained regions.
 - Accent `#F2CC4D`; success `#45BF92`; danger `#EF7B6D`; text `#F2F4F6`; muted `#9BA3AE`.
