@@ -3,7 +3,7 @@ name: sacra-ui-build
 description: Build or adapt application screens with SACRA UI / Technical Editorial. Use for dashboards, admin panels, forms, tables, navigation, cards, workspaces, landing screens, and other UI that should follow the SACRA graphite/yellow design system.
 metadata:
   author: Sacraer-group
-  version: "1.5.0"
+  version: "1.6.0"
   argument-hint: <screen-or-feature>
 ---
 
@@ -74,3 +74,10 @@ If the target is a terminal/TUI/CLI dashboard, do not use the web component/layo
 For a task list + detail view or image upload, start with `site/examples/postavki.html`, `site/src/sacra-operations.css` and `site/src/sacra-upload.js`. Keep the selected task edge, local scroll containers and calm result cards.
 
 Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.
+
+
+## Web semantic themes
+
+For themeable web UI, load `site/src/sacra-themes.js` after `site/sacra-ui.css`. SACRA Graphite remains the default; Nord, Gruvbox Dark, Dracula, Tokyo Night, Solarized Dark/Light and Mono Graphite are optional role palettes. Theme switching may change only `--s-color-*` roles. Never change layout, spacing, radii, typography, component DOM, navigation, or keyboard behavior as part of a theme.
+
+Use `SacraThemes.restore()` for saved preference and `SacraThemes.apply(id,{persist:true})` for explicit selection. Read `site/docs/THEMES.md` and `site/themes.json` when a full reference is available.

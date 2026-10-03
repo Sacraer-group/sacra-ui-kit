@@ -3,7 +3,7 @@ name: sacra-ui-audit
 description: Audit, maintain, or refactor SACRA UI implementations for design-system consistency, accessibility, responsive behavior, build integrity, and regression risk. Use for code review, visual QA, cleanup, upgrades, and release checks.
 metadata:
   author: Sacraer-group
-  version: "1.4.0"
+  version: "1.5.0"
   argument-hint: <files-or-change>
 ---
 
@@ -50,3 +50,8 @@ For terminal interfaces audit against `tui/docs/DESIGN.md`, `tui/docs/COMPONENTS
 Run `python site/tests/postavki_browser.py` for uploads, local queue/detail, copy success/failure, language groups and responsive checks. Verify result grids use `minmax(0,1fr)` and code/table overflow stays local. Browser MIME checks do not replace server validation.
 
 Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.
+
+
+## Web theme audit
+
+When web themes are enabled, verify all eight palettes against `site/themes.json`. Check that palette changes are limited to semantic `--s-color-*` roles; layout, spacing, radii, typography, DOM structure, chart geometry, focus order and keyboard behavior must remain invariant. Graphite is the default, not a hard-coded requirement inside reusable components.

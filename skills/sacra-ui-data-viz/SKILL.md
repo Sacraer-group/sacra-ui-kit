@@ -3,7 +3,7 @@ name: sacra-ui-data-viz
 description: Build or integrate SACRA UI charts, technical graphics, and WebAssembly motion. Use for line/bar/scatter/radar/heatmap/donut/gauge/Sankey/treemap charts, animated wireframes, WASM geometry, Canvas/SVG rendering, exports, and performance controls.
 metadata:
   author: Sacraer-group
-  version: "1.4.0"
+  version: "1.5.0"
   argument-hint: <chart-or-motion-feature>
 ---
 
@@ -51,3 +51,8 @@ For terminal charts switch to the `sacra-ui-tui-charts` contract under `tui/`: s
 For document-processing dashboards, reuse `site/examples/postavki.html` metric strip and state/detail cards. A processed-page counter is not an overall completion percentage. Demo queue values are not telemetry; never replace measured WASM statistics with synthetic data.
 
 Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.
+
+
+## Web themes and renderers
+
+Web themes come from `site/src/sacra-themes.js` / `site/themes.json`. Graphite is the default. Theme changes are color-role remaps only. SVG/Canvas renderers that cache computed colors must refresh or rerender after `sacra-themechange`; never rebuild chart bounds, data, units, geometry, or interaction state because the palette changed.

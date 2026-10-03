@@ -3,7 +3,7 @@ name: sacra-ui-controls
 description: Implement, fix, or review SACRA UI forms and interaction feedback. Use for custom selects, checkboxes, switches, buttons, focus states, clipboard/copy feedback, toasts, dialogs, validation, and keyboard accessibility.
 metadata:
   author: Sacraer-group
-  version: "1.3.0"
+  version: "1.4.0"
   argument-hint: <control-or-form>
 ---
 
@@ -62,3 +62,8 @@ Use real labels and native inputs behind visual wrappers. Set `aria-invalid` plu
 Use `SacraUpload.mount(root,{maxFiles,maxBytes,onSubmit})` for camera/file pickers and removable previews. Preserve whole-batch validation, file order, pending controls, error retention and Object URL cleanup. Source defaults are not global product rules; transport belongs to the host app.
 
 Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.
+
+
+## Themes
+
+Controls must consume semantic `--s-color-*` roles, not Graphite literals. If the host exposes palette selection, use `site/src/sacra-themes.js`; changing a palette must not alter control geometry, labels, focus order, native semantics, or keyboard behavior. Focus remains the theme accent role and success/error remain separate semantic roles.
