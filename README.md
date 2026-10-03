@@ -8,7 +8,7 @@ The repository is intentionally structured so the showcase is a normal multi-fil
 
 ```text
 index.html                 # showcase entrypoint; loads external assets from site/
-site/                      # SACRA UI 1.4.3 package hierarchy, except index.html
+site/                      # web SACRA UI 1.4.3 package hierarchy, except index.html\ntui/                       # terminal/TUI design system + browser reference
   starter.html
   modular.html
   sacra-ui.css
@@ -22,11 +22,18 @@ site/                      # SACRA UI 1.4.3 package hierarchy, except index.html
   src/
   tests/
   wasm/
+tui/                       # SACRA TUI Lab 0.2: browser reference, components, themes, charts, tests
+  assets/
+  docs/
+  examples/
+  tests/
 skills/                    # portable agent skills
   sacra-ui-build/
   sacra-ui-controls/
   sacra-ui-data-viz/
   sacra-ui-docs/
+  sacra-ui-tui/
+  sacra-ui-tui-charts/
   sacra-ui-audit/
 ```
 
@@ -42,6 +49,8 @@ The `site/` directory preserves the **1.4.3 package hierarchy 1:1 except for `in
 | `sacra-ui-controls` | Custom selects, checkbox/switch, focus, copy/toast feedback |
 | `sacra-ui-data-viz` | Charts, Canvas, technical graphics, real WASM motion |
 | `sacra-ui-docs` | API/SDK docs, guides, code copy blocks, synchronized language tabs |
+| `sacra-ui-tui` | Terminal layouts, components, keyboard flows, themes and TUI state |
+| `sacra-ui-tui-charts` | Terminal chart renderers, coordinates, gaps, cursor and telemetry graphics |
 | `sacra-ui-audit` | Design-system review, accessibility, responsive and regression QA |
 
 ### Just list the available skills
@@ -111,14 +120,16 @@ npx skills add "$HOME/.codex/sacra-ui-kit/skills" \
 
 After that:
 
-- full global reference: `~/.codex/sacra-ui-kit/site/`
-- root showcase: `~/.codex/sacra-ui-kit/index.html`
+- full web reference: `~/.codex/sacra-ui-kit/site/`
+- full TUI reference: `~/.codex/sacra-ui-kit/tui/`
+- root web showcase: `~/.codex/sacra-ui-kit/index.html`
+- TUI browser lab: `~/.codex/sacra-ui-kit/tui/index.html`
 - all SACRA skills: installed globally for Codex and available from every Codex project
 
 The skills resolve references in this order:
 
 1. a full `sacra-ui-kit` checkout in the current workspace;
-2. the global Codex reference at `$HOME/.codex/sacra-ui-kit/site/`;
+2. the global Codex reference at `$HOME/.codex/sacra-ui-kit/site/` for web or `$HOME/.codex/sacra-ui-kit/tui/` for terminal UI;
 3. the compact `references/` bundled inside the installed skill.
 
 To update the global site and reinstall the latest skills later:
@@ -155,6 +166,37 @@ The repository now includes a reusable documentation layer based on the SACRA vi
 
 The example text and endpoints are intentionally synthetic. Reuse the **design and interaction**, not the demo API contract.
 
+## TUI design system
+
+`/tui` is the separate terminal branch of SACRA UI. It is not web CSS transplanted into a terminal and it is not an ultra-mog skin.
+
+- `tui/index.html` — executable browser reference for components, tasks, charts, monitor and rules.
+- `tui/docs/DESIGN.md` — character-cell geometry, state semantics, keyboard model and native integration plan.
+- `tui/docs/COMPONENTS.md` — TUI component catalog.
+- `tui/docs/THEMES.md` — SACRA Graphite plus Nord, Gruvbox, Dracula, Tokyo Night, Solarized Dark/Light and Mono role mappings. Themes change colors only, never geometry/behavior.
+- `tui/assets/charts.js` + `tui/assets/coordinates.js` — chart segmentation/raster/coordinate contracts. `ultra-mog` contributes chart-rendering ideas only; its layout, labels, palette and navigation are explicitly excluded.
+- `tui/tests/` — calculation tests plus browser QA evidence from the design lab.
+
+The default terminal palette is SACRA Graphite and preserves the 17 SACRA color roles. Full charts use real coordinate bounds, ticks/guides and a cursor; zero is a real sample, missing data creates a gap, and Pixels → Octant → ASCII is a renderer/fallback ladder rather than three different data models.
+
+Use `sacra-ui-tui` for terminal layouts/interactions and `sacra-ui-tui-charts` for terminal telemetry/chart work.
+
+## SACRA TUI
+
+Terminal interfaces have a dedicated design branch under `tui/`; do not fake a terminal by restyling web cards.
+
+- `tui/index.html` — executable browser simulation and component catalogue.
+- `tui/docs/DESIGN.md` — canonical layout, state, keyboard and responsive-cell contract.
+- `tui/docs/COMPONENTS.md` — terminal component behavior.
+- `tui/docs/THEMES.md` — role-based theme switching; SACRA Graphite is the default.
+- `tui/docs/SOURCES.md` — provenance and the hard boundary around ultra-mog.
+- `tui/examples/` and `tui/tests/` — minimal contracts and runnable invariants.
+- `skills/sacra-ui-tui` — agent skill for terminal/TUI work.
+
+The TUI reference includes Pixels, Octant-style and ASCII chart renderers with one shared coordinate/axis model. Missing samples split lines; zero remains data. **Only chart rendering ideas** are adapted from `Sacraer-group/ultra-mog`; its palette, layout, navigation, labels and overall visual style are explicitly excluded.
+
+Alternate palettes remap semantic roles only and never change layout or interaction. The browser lab currently contains SACRA Graphite, Nord, Gruvbox Dark, Dracula, Tokyo Night, Solarized Dark, Solarized Light and Mono Graphite.
+
 ## SACRA contract
 
 - Preserve the graphite/yellow `--s-*` tokens.
@@ -178,6 +220,6 @@ Source commit: `d74d09d357cf184026973dbb9d055f2ea91894a2`. Core SACRA UI 1.4.3 t
 - `site/src/sacra-upload.js` + `site/src/sacra-operations.css`: reusable, transport-free components.
 - [Source map and adaptations](site/docs/UPSTREAM-POSTAVKI.md).
 
-The main `index.html` includes a working upload specimen and links to both examples. All runtime CSS/JS stays in `site/`; no code is baked into the entrypoint. The existing global Codex update command downloads the new site and updated five skills together.
+The main `index.html` includes a working upload specimen and links to both examples. All runtime CSS/JS stays in `site/`; no code is baked into the entrypoint. The existing global Codex update command downloads the web site, TUI reference and all seven skills together.
 
 UI checks: `python site/tests/postavki_browser.py` (requires Playwright + Chromium; `SACRA_CHROMIUM` may name an installed binary). No OCR service is contacted. These are not Safari or real-device camera tests.

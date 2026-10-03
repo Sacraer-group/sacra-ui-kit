@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>SACRA / TUI — Terminal design laboratory</title>
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/tokens.css"><link rel="stylesheet" href="assets/lab.css">
+<link rel="stylesheet" href="assets/coordinates-themes.css">
+<script src="assets/themes.js" defer></script><script src="assets/coordinates.js" defer></script>
+<script src="assets/charts.js" defer></script><script src="assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#terminal">К симулятору</a>
+<header class="lab-head">
+ <a class="wordmark" href="#" aria-label="SACRA TUI, начало"><span class="mark">S</span><span>SACRA<span class="wordmark-slash"> / </span>TUI</span><small>DESIGN LABORATORY</small></a>
+ <div class="lab-tag">EXPLORATION 002 <span>НЕ РЕЛИЗ</span></div>
+</header>
+<main class="lab-main">
+ <div class="intro"><div><p class="eyebrow">ТЕРМИНАЛЬНЫЙ СЛОЙ / SACRA UI</p><h1>Меньше хрома.<br><em>Больше сигнала.</em></h1></div><div class="intro-aside"><p>Своя сетка. Восемь палитр.<br>Координаты вместо декора.<br>Из ultra-mog — только идея графиков.</p><a href="docs/DESIGN.md">Спецификация дизайна ↗</a></div></div>
+ <section class="lab-controls" aria-label="Настройки браузерной симуляции">
+  <div class="control-group"><span class="control-label">ОКНО</span><div class="segmented" aria-label="Ширина терминала"><button data-size="auto" aria-pressed="true">AUTO</button><button data-size="160" aria-pressed="false">160</button><button data-size="120" aria-pressed="false">120</button><button data-size="80" aria-pressed="false">80</button></div></div>
+  <div class="control-group"><span class="control-label">ГРАФИК</span><div class="segmented" aria-label="Режим графиков"><button data-renderer="pixels" aria-pressed="true">PIXELS</button><button data-renderer="octant" aria-pressed="false">OCTANT</button><button data-renderer="ascii" aria-pressed="false">ASCII</button></div></div>
+  <button class="theme-trigger" id="theme-button" aria-haspopup="dialog" aria-label="Выбрать палитру TUI"><span aria-hidden="true" id="theme-swatches"></span><span>[t] <b data-theme-name>SACRA Graphite</b></span><span aria-hidden="true">▾</span></button>
+  <button class="text-action" id="export-frame">↓ TXT-кадр</button><button class="text-action" id="zen-button">[v] Только TUI</button><button class="text-action" id="help-button">? Клавиши</button>
+ </section>
+ <div class="terminal-scroll" id="terminal-scroll">
+  <section class="terminal" data-tui-theme-root id="terminal" tabindex="0" aria-label="Браузерный макет TUI, синтетические данные">
+   <header class="t-title"><strong>▣ SACRA <span class="dim">/</span> TERMINAL</strong><span class="t-session">mesh-lab <span class="dim">· local demo</span></span><span class="session-indicator">● SYNTHETIC</span></header>
+   <nav class="t-tabs" aria-label="Экраны TUI"><button data-view="components" aria-current="page"><b>1</b> Компоненты</button><button data-view="tasks"><b>2</b> Задачи</button><button data-view="charts"><b>3</b> Графики</button><button data-view="monitor"><b>4</b> Монитор</button><button data-view="rules"><b>5</b> Правила</button><button class="t-pause" id="pause">[p] Пауза</button></nav>
+   <div class="t-context"><span id="breadcrumb">sacra://components/catalogue</span><span class="t-context-controls"><button id="coordinate-button" aria-pressed="true" title="Координатная сетка и деления">[g] Сетка</button><button id="window-button" title="Переключить временное окно">[w] 1 MIN</button> <span id="grid-size">— COL</span></span></div>
+   <div id="screen" class="screen"></div>
+   <footer class="t-status"><span><b id="mode-state">NORMAL</b><span id="status-text"> Выбери панель или нажми ?</span></span><span class="status-right" id="render-status">PIXELS · DEMO</span></footer>
+   <div class="t-keybar"><span><kbd>1–5</kbd> экраны</span><span><kbd>Tab</kbd> фокус</span><span><kbd>j/k</kbd> строки</span><span><kbd>/</kbd> поиск</span><span><kbd>:</kbd> команды</span><button id="terminal-theme-button"><kbd>t</kbd> палитра</button><span><kbd>Esc</kbd> назад</span><button id="step-button"><kbd>→</kbd> +1 sample</button></div>
+  </section>
+ </div>
+ <aside class="lab-caption"><span><i></i> НЕ ТЕЛЕМЕТРИЯ УСТРОЙСТВА · ВСЕ ДАННЫЕ ДЕМОНСТРАЦИОННЫЕ</span><span id="renderer-caption">Canvas raster · модель Kitty Graphics, без терминального протокола</span></aside>
+ <section class="design-notes" aria-label="Принципы системы"><article><span>01 / КЛЕТКА</span><h2>Не уменьшенный веб.</h2><p>Отступы в символах и строках, прямые рамки, текстовые состояния. Без теней, скруглённых карточек и иконок, требующих шрифта.</p></article><article><span>02 / ДАННЫЕ</span><h2>Пробел тоже информация.</h2><p>Ноль не исчезает. Пропуски не соединяются. Общая шкала для сравниваемых серий; минимум, максимум и единица рядом.</p></article><article><span>03 / КОНТРОЛЬ</span><h2>Фокус виден всегда.</h2><p>Акцент темы — навигация. Успех — отдельное состояние с [OK]. Перед изменением задачи — диалог; Esc отменяет, а не выполняет действие.</p></article></section>
+ <footer class="lab-footer"><span>SACRA / TUI 0.2 · BROWSER PROTOTYPE</span><span>HTML + CSS + JS · OFFLINE · <a href="docs/SOURCES.md">Источники и границы ↗</a></span></footer>
+</main>
+<dialog data-tui-theme-root id="dialog" class="t-dialog" aria-labelledby="dialog-title"><form method="dialog"><header><span id="dialog-title">Команды</span><button class="dialog-close" value="cancel" aria-label="Закрыть">[×]</button></header><div id="dialog-body"></div><footer id="dialog-footer"></footer></form></dialog>
+<dialog id="theme-dialog" class="t-dialog theme-dialog" data-tui-theme-root aria-labelledby="theme-dialog-title"><form method="dialog"><header><span id="theme-dialog-title">TUI / ПАЛИТРЫ</span><button class="dialog-close" value="cancel" aria-label="Отменить выбор темы">[×]</button></header><div id="theme-body" class="theme-body"></div><p data-theme-status aria-live="polite">Предпросмотр. Применить — сохранить; Esc — отменить.</p><footer class="theme-footer"><div class="theme-tools"><button type="button" class="t-button" id="theme-reset">SACRA</button><button type="button" class="t-button" id="theme-export">↓ JSON</button></div><button class="t-button" value="cancel">[esc] Отмена</button><button class="t-button primary" value="apply">Применить</button></footer></form></dialog>
+<div data-tui-theme-root id="notice" role="status" aria-live="polite" class="notice" hidden></div>
+</body></html>

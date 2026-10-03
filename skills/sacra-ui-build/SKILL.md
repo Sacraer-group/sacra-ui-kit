@@ -3,7 +3,7 @@ name: sacra-ui-build
 description: Build or adapt application screens with SACRA UI / Technical Editorial. Use for dashboards, admin panels, forms, tables, navigation, cards, workspaces, landing screens, and other UI that should follow the SACRA graphite/yellow design system.
 metadata:
   author: Sacraer-group
-  version: "1.4.0"
+  version: "1.5.0"
   argument-hint: <screen-or-feature>
 ---
 
@@ -17,8 +17,8 @@ Resolve the reference root before building:
 
 1. If the current checkout is `sacra-ui-kit` and contains `site/`, use that checkout.
 2. Otherwise, if `$HOME/.codex/sacra-ui-kit/site/` exists, use `$HOME/.codex/sacra-ui-kit` as the global Codex reference root.
-3. Otherwise use `references/design-system.md` bundled with this skill as the compact fallback.
-4. In the target project, reuse any SACRA components already present before copying more kit code.
+3. For a terminal/TUI request, use `tui/` (or `$HOME/.codex/sacra-ui-kit/tui/`) and the `sacra-ui-tui` skill instead of translating web components into terminal chrome.\n4. Otherwise use `references/design-system.md` bundled with this skill as the compact fallback.
+5. In the target project, reuse any SACRA components already present before copying more kit code.
 
 From the resolved full reference root inspect:
 - `site/starter.html`
@@ -65,8 +65,17 @@ Keep visible `:focus-visible`. Yellow focus means keyboard position, not success
 
 Check touched screens at 320, 390, 768 and 1440 px plus the keyboard path. In this repo use the smallest relevant check under `site/tests/`.
 
+## Terminal/TUI routing
+
+If the target is a terminal/TUI/CLI dashboard, do not use the web component/layout rules above as the primary reference. Resolve `tui/` in the current kit or `$HOME/.codex/sacra-ui-kit/tui/` and follow `sacra-ui-tui`. Use character-cell geometry, keyboard-first states and theme-role remapping rather than web radii/shadows. For terminal charts use `sacra-ui-tui-charts`.
+
 ## Postavki frontend refresh
 
 For a task list + detail view or image upload, start with `site/examples/postavki.html`, `site/src/sacra-operations.css` and `site/src/sacra-upload.js`. Keep the selected task edge, local scroll containers and calm result cards.
 
 Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.
+
+
+## TUI routing
+
+Terminal applications are a separate SACRA design branch. Start from `tui/index.html` and `tui/docs/DESIGN.md`, then use `sacra-ui-tui`. Preserve cell-based geometry and keyboard behavior; do not wrap the web CSS in a terminal renderer.

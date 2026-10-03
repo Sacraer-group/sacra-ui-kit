@@ -3,7 +3,7 @@ name: sacra-ui-data-viz
 description: Build or integrate SACRA UI charts, technical graphics, and WebAssembly motion. Use for line/bar/scatter/radar/heatmap/donut/gauge/Sankey/treemap charts, animated wireframes, WASM geometry, Canvas/SVG rendering, exports, and performance controls.
 metadata:
   author: Sacraer-group
-  version: "1.3.0"
+  version: "1.4.0"
   argument-hint: <chart-or-motion-feature>
 ---
 
@@ -42,8 +42,19 @@ Support play/pause and FPS limits, pause hidden/offscreen work where supported, 
 
 For WASM changes use `site/scripts/build-wasm.sh` / `site/scripts/embed-wasm.py` and `node site/tests/wasm.test.cjs`.
 
+## Terminal/TUI charts
+
+For terminal charts switch to the `sacra-ui-tui-charts` contract under `tui/`: shared segments/bounds across Pixels, Octant and ASCII; real coordinate labels; zero preserved; missing/NaN/time gaps split lines; theme changes color roles only. The ultra-mog source is a rendering-idea reference, not a visual-theme/layout reference.
+
 ## Postavki frontend refresh
 
 For document-processing dashboards, reuse `site/examples/postavki.html` metric strip and state/detail cards. A processed-page counter is not an overall completion percentage. Demo queue values are not telemetry; never replace measured WASM statistics with synthetic data.
 
 Read `site/docs/UPSTREAM-POSTAVKI.md` under the resolved kit root (current checkout or `$HOME/.codex/sacra-ui-kit`). Import the visuals/interactions, not the source application API contract. Base palette, custom select, checkbox, WASM and `SacraUtils.copy` remain unchanged.
+
+
+## Terminal / TUI charts
+
+For terminal charts use the dedicated `tui/` reference and `sacra-ui-tui` skill. The TUI contract shares one series model across terminal-graphics Pixels, Octant-style subcells and ASCII fallback. All modes keep actual axes, units, coordinate grid, ticks, time window, legend and missing-data semantics.
+
+The rendering ideas are adapted from `Sacraer-group/ultra-mog`; its palette, screen layout, frame styling, navigation and labels are not design references. Preserve the upstream notice in `tui/docs/ULTRA-MOG-LICENSE.txt`.

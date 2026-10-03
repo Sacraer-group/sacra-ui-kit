@@ -1,0 +1,12 @@
+/* SACRA palette 1.4.3 retained. No ultra-mog theme colors. No font downloads. */
+:root {
+ --s-color-canvas:#15191F; --s-color-surface:#1B2027; --s-color-raised:#222831;
+ --s-color-sunken:#11151A; --s-color-hover:#29313B; --s-color-border:#2A3038;
+ --s-color-border-strong:#414B58; --s-color-text:#F2F4F6; --s-color-muted:#9BA3AE;
+ --s-color-subtle:#747E8C; --s-color-accent:#F2CC4D; --s-color-accent-hover:#FFDD6B;
+ --s-color-accent-soft:rgba(242,204,77,.07); --s-color-success:#45BF92;
+ --s-color-success-soft:rgba(69,191,146,.09); --s-color-danger:#EF7B6D;
+ --s-color-danger-soft:rgba(239,123,109,.09);
+ --t-font:'Liga SFMono Nerd Font','SFMono Nerd Font','SF Mono','SFMono-Regular',Menlo,Monaco,Consolas,'Liberation Mono',monospace;
+ --t-cell:1ch; --t-row:20px; --t-type:12px;
+}

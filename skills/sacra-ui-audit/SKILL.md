@@ -3,7 +3,7 @@ name: sacra-ui-audit
 description: Audit, maintain, or refactor SACRA UI implementations for design-system consistency, accessibility, responsive behavior, build integrity, and regression risk. Use for code review, visual QA, cleanup, upgrades, and release checks.
 metadata:
   author: Sacraer-group
-  version: "1.3.0"
+  version: "1.4.0"
   argument-hint: <files-or-change>
 ---
 
@@ -24,7 +24,7 @@ Resolve the canonical 1.4.3 reference in this order: current `sacra-ui-kit` chec
 7. **Motion** — real WASM remains real, reduced-motion/autopause works, measured performance is not replaced by constants.
 8. **Responsive** — 320/390/768/1440 px with no page-level horizontal overflow.
 9. **Accessibility** — labels, keyboard, `focus-visible`, dialogs, ARIA relationships, disabled/error semantics.
-10. **Repo structure** — root `index.html` must keep CSS/JS/WASM external under `site/`; do not rebundle it into a giant HTML file.
+10. **Repo structure** — root `index.html` must keep web assets external under `site/`; TUI assets stay under `tui/`; do not rebundle either into a giant HTML file.\n11. **TUI** — when present, audit cell geometry, visible focus vs selection, keyboard modes, theme role mapping, missing-vs-zero chart semantics, narrow-width pane collapse and terminal capability fallbacks.
 
 ## Repository checks
 
@@ -34,12 +34,16 @@ Use the smallest relevant checks:
 node site/tests/wasm.test.cjs
 python site/tests/controls.py
 python site/tests/feedback.py
-python site/tests/browser.py
+python site/tests/browser.py\nnode tui/tests/charts.test.cjs\nnode tui/tests/coordinates-themes.test.cjs
 ```
 
 Browser tests require a compatible browser/runtime. Do not claim Safari/macOS/iOS verification unless it was actually run.
 
 Report concrete findings with file/path and consequence. Separate verified bugs from subjective design suggestions and prefer one root-cause patch.
+
+## TUI audit
+
+For terminal interfaces audit against `tui/docs/DESIGN.md`, `tui/docs/COMPONENTS.md` and `tui/docs/THEMES.md` (or the `sacra-ui-tui` fallback). Check cell-based layout, resize behavior, focus/selected/checked separation, keyboard modes, missing vs stale vs zero, theme-invariant geometry and terminal restoration. For charts run the TUI chart checks and verify renderer fallback/capability probing. Do not judge a TUI by web responsive breakpoints.
 
 ## Postavki frontend refresh
 
