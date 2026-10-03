@@ -1,0 +1,7 @@
+{
+  "browser": "Chromium 144.0.7559.96",
+  "loading": "unmodified source injection",
+  "capture": "Playwright screenshots; palette overview is a labelled montage of eight real screenshots",
+  "file_url_tested": false,
+  "safari_tested": false
+}

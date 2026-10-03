@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SACRA / независимый график с координатами</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="minimal-chart.css">
+  <script src="../assets/coordinates.js" defer></script>
+  <script src="../assets/charts.js" defer></script>
+  <script src="minimal-chart.js" defer></script>
+</head>
+<body><main>
+  <p>SACRA / TUI 0.2 · MINIMAL CHART</p>
+  <h1>График и координатная рамка.</h1>
+  <p>Синтетический CPU · 0–100% · окно 60 секунд. В середине намеренный пропуск данных.</p>
+  <figure aria-labelledby="chart-caption">
+    <figcaption id="chart-caption">CPU / % <span>Y / % · X / t</span></figcaption>
+    <div class="plot-row">
+      <div class="y-labels" aria-hidden="true"></div>
+      <div class="plot-stage">
+        <svg class="coordinates" aria-hidden="true"></svg>
+        <canvas width="720" height="180" role="img" aria-label="Синтетическая загрузка CPU, шкала 0–100%, временное окно −60…0 секунд. Пропуск на участке −34…−25 секунд. Числа доступны в таблице ниже."></canvas>
+      </div>
+    </div>
+    <div class="x-labels" aria-hidden="true"></div>
+  </figure>
+  <details><summary>Числовые данные графика</summary><div class="table-scroll"><table><thead><tr><th>Время, s</th><th>CPU, %</th></tr></thead><tbody id="values"></tbody></table></div></details>
+  <p>Независимые <code>TuiCoordinates</code> + <code>TuiCharts</code>, без <code>app.js</code>, таймеров и сетевых запросов.</p>
+  <a href="../index.html">← В лабораторию</a>
+</main></body>
+</html>

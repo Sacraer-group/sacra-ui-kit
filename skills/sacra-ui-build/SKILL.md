@@ -3,7 +3,7 @@ name: sacra-ui-build
 description: Build or adapt application screens with SACRA UI / Technical Editorial. Use for dashboards, admin panels, forms, tables, navigation, cards, workspaces, landing screens, and other UI that should follow the SACRA graphite/yellow design system.
 metadata:
   author: Sacraer-group
-  version: "1.4.0"
+  version: "1.5.0"
   argument-hint: <screen-or-feature>
 ---
 
@@ -64,6 +64,10 @@ Keep visible `:focus-visible`. Yellow focus means keyboard position, not success
 ## Verification
 
 Check touched screens at 320, 390, 768 and 1440 px plus the keyboard path. In this repo use the smallest relevant check under `site/tests/`.
+
+## Terminal/TUI routing
+
+If the target is a terminal/TUI/CLI dashboard, do not use the web component/layout rules above as the primary reference. Resolve `tui/` in the current kit or `$HOME/.codex/sacra-ui-kit/tui/` and follow `sacra-ui-tui`. Use character-cell geometry, keyboard-first states and theme-role remapping rather than web radii/shadows. For terminal charts use `sacra-ui-tui-charts`.
 
 ## Postavki frontend refresh
 

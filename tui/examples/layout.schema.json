@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SACRA TUI prototype session",
+  "description": "Proposed contract; not a production terminal backend API.",
+  "type": "object",
+  "required": [
+    "source",
+    "viewport",
+    "state",
+    "samples"
+  ],
+  "properties": {
+    "source": {
+      "const": "synthetic"
+    },
+    "viewport": {
+      "type": "object",
+      "required": [
+        "columns",
+        "rows"
+      ],
+      "properties": {
+        "columns": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rows": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "view": {
+          "enum": [
+            "monitor",
+            "charts",
+            "components",
+            "tasks",
+            "rules"
+          ]
+        },
+        "mode": {
+          "enum": [
+            "normal",
+            "input",
+            "confirm"
+          ]
+        },
+        "theme": {
+          "enum": [
+            "sacra",
+            "nord",
+            "gruvbox",
+            "dracula",
+            "tokyo",
+            "solarized",
+            "solarized-light",
+            "mono"
+          ]
+        }
+      }
+    },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "t"
+        ],
+        "properties": {
+          "t": {
+            "type": "number",
+            "minimum": 0
+          },
+          "cpu": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 100
+          }
+        }
+      }
+    }
+  }
+}

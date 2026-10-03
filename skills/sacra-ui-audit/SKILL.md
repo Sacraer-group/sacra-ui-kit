@@ -3,7 +3,7 @@ name: sacra-ui-audit
 description: Audit, maintain, or refactor SACRA UI implementations for design-system consistency, accessibility, responsive behavior, build integrity, and regression risk. Use for code review, visual QA, cleanup, upgrades, and release checks.
 metadata:
   author: Sacraer-group
-  version: "1.3.0"
+  version: "1.4.0"
   argument-hint: <files-or-change>
 ---
 
@@ -40,6 +40,10 @@ python site/tests/browser.py
 Browser tests require a compatible browser/runtime. Do not claim Safari/macOS/iOS verification unless it was actually run.
 
 Report concrete findings with file/path and consequence. Separate verified bugs from subjective design suggestions and prefer one root-cause patch.
+
+## TUI audit
+
+For terminal interfaces audit against `tui/docs/DESIGN.md`, `tui/docs/COMPONENTS.md` and `tui/docs/THEMES.md` (or the `sacra-ui-tui` fallback). Check cell-based layout, resize behavior, focus/selected/checked separation, keyboard modes, missing vs stale vs zero, theme-invariant geometry and terminal restoration. For charts run the TUI chart checks and verify renderer fallback/capability probing. Do not judge a TUI by web responsive breakpoints.
 
 ## Postavki frontend refresh
 

@@ -3,7 +3,7 @@ name: sacra-ui-data-viz
 description: Build or integrate SACRA UI charts, technical graphics, and WebAssembly motion. Use for line/bar/scatter/radar/heatmap/donut/gauge/Sankey/treemap charts, animated wireframes, WASM geometry, Canvas/SVG rendering, exports, and performance controls.
 metadata:
   author: Sacraer-group
-  version: "1.3.0"
+  version: "1.4.0"
   argument-hint: <chart-or-motion-feature>
 ---
 
@@ -41,6 +41,10 @@ const view = SacraMotion.mount(canvas, {
 Support play/pause and FPS limits, pause hidden/offscreen work where supported, respect `prefers-reduced-motion`, and report only measured FPS/compute time. Never replace the WASM path with a JavaScript imitation while still calling it WASM.
 
 For WASM changes use `site/scripts/build-wasm.sh` / `site/scripts/embed-wasm.py` and `node site/tests/wasm.test.cjs`.
+
+## Terminal/TUI charts
+
+For terminal charts switch to the `sacra-ui-tui-charts` contract under `tui/`: shared segments/bounds across Pixels, Octant and ASCII; real coordinate labels; zero preserved; missing/NaN/time gaps split lines; theme changes color roles only. The ultra-mog source is a rendering-idea reference, not a visual-theme/layout reference.
 
 ## Postavki frontend refresh
 

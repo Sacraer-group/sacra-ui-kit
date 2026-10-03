@@ -1,0 +1,15 @@
+body{margin:0;background:var(--s-color-canvas);color:var(--s-color-text);font:12px/1.8 var(--t-font)}
+main{max-width:900px;margin:40px auto;padding:0 24px}h1{font-size:24px;font-weight:500}p{color:var(--s-color-muted)}
+figure{margin:32px 0;padding:18px;border:1px solid var(--s-color-border-strong);background:var(--s-color-surface)}
+figcaption{color:var(--s-color-accent);display:flex;justify-content:space-between;gap:12px;margin-bottom:28px}
+figcaption span{color:var(--s-color-muted)}.plot-row{display:grid;grid-template-columns:5ch minmax(0,1fr)}
+.plot-stage{position:relative;background:var(--s-color-canvas);isolation:isolate}
+canvas{display:block;position:relative;z-index:1;width:100%;height:180px;image-rendering:pixelated}
+.coordinates{position:absolute;top:-12px;left:-12px;width:calc(100% + 24px);height:calc(100% + 24px);max-width:none;overflow:visible;pointer-events:none;color:var(--s-color-border-strong);z-index:0}
+.coordinate-grid{opacity:.58}.coordinate-center{opacity:.9}.coordinate-crosses{stroke-width:1.3}
+.coordinate-grid,.coordinate-frame,.coordinate-rulers,.coordinate-crosses,.coordinate-zero,.coordinate-center{vector-effect:non-scaling-stroke}
+.y-labels{position:relative;color:var(--s-color-muted)}.y-labels span{position:absolute;right:18px;top:calc(var(--fraction)*100%);transform:translateY(-50%);white-space:nowrap}
+.x-labels{position:relative;height:20px;margin:16px 0 0 5ch;color:var(--s-color-muted)}
+.x-labels span{position:absolute;left:calc(var(--fraction)*100%);transform:translateX(-50%);white-space:nowrap}.x-labels span:first-child{transform:none}.x-labels span:last-child{transform:translateX(-100%)}
+a{color:var(--s-color-accent)}summary{cursor:pointer;color:var(--s-color-accent)}.table-scroll{max-height:240px;overflow:auto}table{border-collapse:collapse;width:100%}th,td{text-align:left;border-bottom:1px solid var(--s-color-border);padding:4px 8px}a:focus-visible,summary:focus-visible{outline:1px solid var(--s-color-accent);outline-offset:4px}
+@media(max-width:480px){main{margin:24px auto;padding:0 16px}h1{font-size:20px}figure{padding:12px}figcaption{font-size:11px}}

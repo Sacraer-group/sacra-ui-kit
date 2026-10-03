@@ -1,0 +1,73 @@
+/* SACRA / TUI 0.2 — technical coordinates and interchangeable role palettes. */
+.theme-trigger{display:inline-flex;align-items:center;gap:1ch;min-height:30px;padding:3px 1ch;border:1px solid var(--s-color-border-strong);background:var(--s-color-surface);font-size:10px;white-space:nowrap}
+.theme-trigger:hover{border-color:var(--s-color-accent)}
+.theme-trigger b{font-weight:500}
+#theme-swatches{display:flex;gap:2px}
+#theme-swatches i{width:7px;height:12px;background:var(--swatch)}
+.t-context-controls{display:flex;align-items:center;gap:2ch;flex-wrap:wrap;justify-content:flex-end}
+#coordinate-button{color:var(--s-color-muted);padding:0}
+#coordinate-button[aria-pressed=true]{color:var(--s-color-accent)}
+.t-keybar button{padding:0}
+/* The UI wrapper stays graphite. Only marked terminal/dialog/notice roots inherit a preset. */
+[data-tui-theme-root]{--t-chart-secondary:var(--s-color-text);--t-chart-grid:var(--s-color-border-strong)}
+.plot{padding-right:12px;--axis-gutter:5ch}
+.plot-top{margin-bottom:24px;align-items:start;flex-wrap:wrap}
+.plot-body{grid-template-columns:var(--axis-gutter) minmax(0,1fr)}
+.plot-surface{background:var(--s-color-canvas);isolation:isolate}
+.plot-coordinates{position:absolute;top:-12px;left:-12px;width:calc(100% + 24px);height:calc(100% + 24px);max-width:none;overflow:visible;pointer-events:none;color:var(--t-chart-grid);z-index:0}
+.coordinate-grid{opacity:.58}
+.coordinate-grid,.coordinate-frame,.coordinate-rulers,.coordinate-crosses,.coordinate-zero{vector-effect:non-scaling-stroke}
+.coordinate-frame,.coordinate-rulers{opacity:.94}
+.coordinate-crosses{stroke-width:1.3}
+.coordinate-zero{opacity:.9;stroke-dasharray:6 3}
+.plot-canvas{position:relative;z-index:1}
+.plot-y{position:relative;padding:0 18px 0 0;display:block;color:var(--s-color-muted)}
+.plot-y span{position:absolute;top:calc(var(--fraction)*100%);right:18px;transform:translateY(-50%);line-height:1;white-space:nowrap}
+.plot-x{position:relative;height:20px;margin:14px 0 0 var(--axis-gutter);padding:0;border:0;color:var(--s-color-muted)}
+.plot-x span{position:absolute;left:calc(var(--fraction)*100%);top:0;transform:translateX(-50%);white-space:nowrap;line-height:20px}
+.plot-x span:first-child{transform:none}.plot-x span:last-child{transform:translateX(-100%)}
+.plot-legend{margin-top:8px;column-gap:2ch;row-gap:0;align-items:center}
+.plot-legend .b{color:var(--t-chart-secondary)}
+.plot-axis-label{margin-left:auto;color:var(--s-color-subtle)}
+.terminal .plot-ascii,.t-dialog .plot-ascii{z-index:1;background:transparent;font:var(--t-type)/var(--t-row) var(--t-font);letter-spacing:0;line-height:20px}
+.plot-crosshair{z-index:3;border-color:var(--s-color-accent);opacity:.6}
+.plot-horizontal{position:absolute;left:0;right:0;border-top:1px dashed var(--s-color-muted);opacity:.6;z-index:3;pointer-events:none}
+.plot-point{position:absolute;width:5px;height:5px;border:1px solid var(--s-color-accent);background:var(--s-color-canvas);transform:translate(-50%,-50%);z-index:4;pointer-events:none}
+.plot .plot-msg{inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);padding:4px 1ch;max-width:calc(100% - 16px);z-index:3;border:1px solid var(--s-color-border);text-align:center;font-size:var(--t-type);line-height:20px;white-space:nowrap}
+.plot-readout{min-height:40px;line-height:20px;overflow-wrap:anywhere;margin-top:4px}
+.plot-canvas:focus-visible{outline:1px solid var(--s-color-accent);outline-offset:12px}
+.plot-surface:focus-within .coordinate-crosses{stroke:var(--s-color-accent)}
+.theme-dialog{width:min(900px,calc(100% - 24px));max-height:calc(100dvh - 40px)}
+.theme-dialog form{margin:0}.theme-body{padding:16px 2ch}
+.theme-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:3ch}
+.theme-intro{font-size:11px;margin:0 0 12px}
+.theme-list{display:grid;gap:4px;border:0;padding:0;margin:0;min-width:0}
+.theme-list legend{padding:0 0 8px;color:var(--s-color-subtle);font-size:10px}
+.theme-choice{position:relative;display:flex;align-items:center;gap:1ch;padding:9px 1ch;border:1px solid var(--s-color-border);background:var(--s-color-surface);cursor:pointer;min-width:0}
+.theme-choice input{position:absolute;opacity:0;width:1px;height:1px}
+.theme-marker{color:var(--s-color-muted);flex:0 0 3ch}
+.theme-marker:before{content:'( )'}
+.theme-choice:has(input:checked){border-color:var(--s-color-accent);background:var(--s-color-accent-soft)}
+.theme-choice input:checked+.theme-marker:before{content:'(×)';color:var(--s-color-accent)}
+.theme-choice:has(input:focus-visible){outline:1px solid var(--s-color-accent);outline-offset:2px}
+.theme-choice:hover{background:var(--s-color-hover)}
+.theme-choice-name{flex:1;min-width:0;font-weight:400;font-size:12px}
+.theme-colors{display:flex;gap:2px;flex:0 0 auto}
+.theme-colors i{width:7px;height:13px;background:var(--swatch)}
+.theme-preview{min-width:0;padding-top:22px}
+.theme-preview .frame{margin-bottom:20px}
+.theme-preview .plot{padding-top:4px;padding-right:12px}
+.theme-preview .plot-readout{display:none}
+.theme-preview .t-code{font:12px/20px var(--t-font);margin-bottom:12px}
+.theme-meta{color:var(--s-color-muted);font-size:11px;min-height:40px}
+.theme-footer{flex-wrap:wrap}.theme-footer .theme-tools{margin-right:auto;display:flex;gap:1ch}
+.theme-dialog [data-theme-status]{font-size:11px;margin:0;padding:0 2ch 12px;color:var(--s-color-muted)}
+.theme-swatch-info{display:grid;grid-template-columns:1fr 1fr;gap:4px 1ch;color:var(--s-color-muted);font-size:11px}
+.theme-swatch-info code{color:var(--s-color-text)}
+[data-tui-theme-root][data-theme=solarized-light] .t-button.primary{color:#FDF6E3}
+/* Keep line metrics and component geometry constant; presets only replace colors. */
+@media(max-width:800px){.lab-controls{gap:10px 16px}.theme-trigger{order:2}#export-frame,#zen-button,#help-button{order:3}}
+@media(max-width:640px){.theme-layout{grid-template-columns:1fr}.theme-list{max-height:240px;overflow-y:auto;padding:3px}.theme-preview{padding-top:0}.theme-preview .frame:first-child{display:none}.theme-preview .t-code{display:none}.theme-preview .frame{margin-bottom:8px}.theme-dialog .theme-body{padding:12px 1ch}.theme-choice{padding:8px 1ch}.theme-dialog footer{padding:10px 1ch}.theme-meta{min-height:20px;margin:0}.theme-footer .theme-tools{width:100%}.t-context{align-items:start;flex-wrap:wrap}.t-context-controls{gap:1ch}.plot{--axis-gutter:5ch}.plot-top{margin-bottom:22px}.plot-top [data-stat]{font-size:10px}.plot-axis-label{font-size:10px}.theme-trigger{font-size:10px}.terminal .frame-corner{max-width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+.terminal{color:var(--s-color-text)}
+.t-dialog .plot-top strong{font-size:var(--t-type);font-weight:700}
+.coordinate-center{opacity:.9;vector-effect:non-scaling-stroke}
