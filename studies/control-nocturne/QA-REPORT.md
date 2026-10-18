@@ -17,6 +17,8 @@
 | P3 | Proposed CSS introduced two unregistered semantic roles (`info`, `warning`) on top of SACRA's 17-role contract | Removed unregistered CSS vars and matching proposal JSON extras | Contract/mirror check |
 | P3 | Mobile top command shortcut badge wrapped into the content region | Compact top actions below 580 px | 320 CSS px visual inspection |
 
+Copied Python reference: fixed the invalid `\L` escape by making the LibreHardwareMonitor PowerShell command a raw string; functional payload unchanged.
+
 ## What remains intentionally **not implemented**
 
 The mock does **not** support real network topology discovery, Proxmox/VM/LXC actions, a host adapter, streaming chat, native terminal image rendering (Kitty/iTerm2/Sixel), SSH/tmux capability probing, keyboard-interactive native TUI, production logs or production accessibility semantics. The standalone mock must not be treated as `site/` production components or native `tui/sdk` code.
