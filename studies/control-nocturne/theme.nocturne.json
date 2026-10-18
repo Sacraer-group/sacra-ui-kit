@@ -1,0 +1,49 @@
+{
+  "name": "SACRA Nocturne",
+  "id": "nocturne",
+  "scheme": "dark",
+  "status": "proposed — not registered in upstream",
+  "extends": "Sacraer-group/sacra-ui-kit@main (web 1.4.3; TUI Lab 0.2)",
+  "notes": "Semantic color-only variant; do not alter geometry, typography, DOM, or keymap.",
+  "colors": {
+    "canvas": "#0D0E16",
+    "surface": "#151622",
+    "raised": "#1D1F2C",
+    "sunken": "#090A11",
+    "hover": "#282A3B",
+    "border": "#36384A",
+    "border-strong": "#575977",
+    "text": "#F4F2F8",
+    "muted": "#B9B5C6",
+    "subtle": "#9590A5",
+    "accent": "#BCA4FF",
+    "accent-hover": "#D2C1FF",
+    "accent-soft": "rgba(188,164,255,0.10)",
+    "success": "#79DBB1",
+    "success-soft": "rgba(121,219,177,0.10)",
+    "danger": "#FC798D",
+    "danger-soft": "rgba(252,121,141,0.10)"
+  },
+  "gpu_monitor_gradients_from_kb_gpu.py": {
+    "load": [
+      "#2ecc71",
+      "#f1c40f",
+      "#ff4757"
+    ],
+    "memory": [
+      "#00d2ff",
+      "#7b61ff",
+      "#ff2e93"
+    ],
+    "temperature": [
+      "#4facfe",
+      "#ffb347",
+      "#ff3b3b"
+    ],
+    "power": [
+      "#a8ff78",
+      "#ffd200",
+      "#ff6a00"
+    ]
+  }
+}
