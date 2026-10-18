@@ -175,7 +175,7 @@ def bar(frac, width=18, pal="load"):
 
 CPU_TEMP = {"v": None}   # ACPI-зона (запасной вариант)
 CPU_SENS = {"pkg_t": None, "core_t": [], "pkg_w": None}  # LibreHardwareMonitor (WMI), нужен запущенный LHM от админа
-_LHM_PS = ("Get-CimInstance -Namespace root\LibreHardwareMonitor -ClassName Sensor -ErrorAction Stop | "
+_LHM_PS = (r"Get-CimInstance -Namespace root\LibreHardwareMonitor -ClassName Sensor -ErrorAction Stop | "
            "Where-Object { $_.Identifier -like '/intelcpu/*' -or $_.Identifier -like '/amdcpu/*' } | "
            "Select-Object Name,SensorType,Value | ConvertTo-Json -Compress")
 
