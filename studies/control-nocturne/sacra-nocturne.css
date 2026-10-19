@@ -1,0 +1,37 @@
+/* Proposed SACRA Nocturne palette. Apply explicitly to [data-s-theme="nocturne"]. */
+/* Graphite remains default; no layout, typography, or behavior changes. */
+[data-s-theme="nocturne"] {
+  --s-color-canvas: #0D0E16;
+  --s-color-surface: #151622;
+  --s-color-raised: #1D1F2C;
+  --s-color-sunken: #090A11;
+  --s-color-hover: #282A3B;
+  --s-color-border: #36384A;
+  --s-color-border-strong: #575977;
+  --s-color-text: #F4F2F8;
+  --s-color-muted: #B9B5C6;
+  --s-color-subtle: #9590A5;
+  --s-color-accent: #BCA4FF;
+  --s-color-accent-hover: #D2C1FF;
+  --s-color-accent-soft: rgba(188,164,255,0.10);
+  --s-color-success: #79DBB1;
+  --s-color-success-soft: rgba(121,219,177,0.10);
+  --s-color-danger: #FC798D;
+  --s-color-danger-soft: rgba(252,121,141,0.10);
+}
+
+/* Telemetry scales are semantic graph presets, not global status colors. */
+:where([data-s-theme="nocturne"]) {
+  --s-telemetry-load-start: #2ecc71;
+  --s-telemetry-load-mid: #f1c40f;
+  --s-telemetry-load-end: #ff4757;
+  --s-telemetry-mem-start: #00d2ff;
+  --s-telemetry-mem-mid: #7b61ff;
+  --s-telemetry-mem-end: #ff2e93;
+  --s-telemetry-temp-start: #4facfe;
+  --s-telemetry-temp-mid: #ffb347;
+  --s-telemetry-temp-end: #ff3b3b;
+  --s-telemetry-power-start: #a8ff78;
+  --s-telemetry-power-mid: #ffd200;
+  --s-telemetry-power-end: #ff6a00;
+}
