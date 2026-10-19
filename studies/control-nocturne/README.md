@@ -18,3 +18,21 @@ The preview is standalone; Playwright injects its HTML with `page.set_content` f
 Study only: The HTML uses bespoke CSS and must not be copied into `site/` as a production SACRA `s-*` implementation. `theme.nocturne.json`/CSS only describe a proposal and are not wired into production theme registries.
 
 See `QA-REPORT.md` for found defects, regression results, and unimplemented infrastructure/image functionality.
+
+## Update 2026-10-19 — Icons, machine metrics and processes
+
+The standalone `preview.html` now uses **32 official Lucide SVGs** embedded as a
+local sprite: no hand-drawn Unicode lookalikes, web fonts or remote CDN. See
+[LUCIDE-LICENSE.md](LUCIDE-LICENSE.md) for the pinned upstream source revision,
+icon inventory and the ISC/MIT license notices.
+
+The overview, network inspector and terminal mock now display synthetic
+per-machine CPU / RAM / disk / network rates, optional GPU VRAM and the top
+three processes ranked by CPU. The Containers screen additionally shows these
+resources for every VM/LXC. **ACTIVE / INACTIVE** states are consistent across
+cards, registry and service indicators; inactive machines do not get fake
+running process data. All values are mock fixtures, **not Proxmox telemetry**.
+
+Details: [DEMO-TELEMETRY.md](DEMO-TELEMETRY.md).
+Validation: [QA-ICONS-RESOURCES.md](QA-ICONS-RESOURCES.md) and the repeatable
+[test_ui.py](test_ui.py) (**270 assertions** in Chromium across five widths).
